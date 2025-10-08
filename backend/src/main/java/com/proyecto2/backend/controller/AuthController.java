@@ -1,0 +1,41 @@
+package com.proyecto2.backend.controller;
+import com.proyecto2.backend.dto.LoginRequest;
+import com.proyecto2.backend.dto.RegisterRequest;
+import com.proyecto2.backend.entity.Usuario;
+import com.proyecto2.backend.service.AuthService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200") // permitir conexión desde Angular
+
+public class AuthController {
+    private final AuthService authService;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        String token = authService.login(request);
+        Usuario user = authService.getUsuarioByEmail(request.getEmail());
+        if (user == null || user.getRol() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("El usuario no tiene rol asignado");
+        }
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("token", token);
+        respuesta.put("rol", user.getRol().getNombre());
+
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Usuario> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authService.register(request));
+    }
+}
