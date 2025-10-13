@@ -12,6 +12,13 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
 
+    public List<Producto> findByEstadoAprobacion(String estadoAprobacion) {
+        return productoRepository.findByEstadoAprobacion("aprobado");
+    }
+
+    public  List<Producto> findByVendedor_IdUsuario(Integer idUsuario) {
+        return productoRepository.findByVendedor_IdUsuarioAndEstadoAprobacion(idUsuario, "aprobado");
+    }
     public List<Producto> obtenerTodos() {
         return productoRepository.findAll();
     }

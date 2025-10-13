@@ -24,7 +24,8 @@ export class InicioSesion {
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
-        this.authService.guardarSesion(res.token, res.rol);
+        console.log(res.idUsuario);
+        this.authService.guardarSesion(res.token, res.rol, res.idUsuario);
 
         switch (res.rol) {
           case 'ADMINISTRADOR':
@@ -38,7 +39,14 @@ export class InicioSesion {
             this.router.navigate(['/logistica']);
             break;
           default:
-            this.router.navigate(['/inicio']);
+            this.router.navigate(['']);
+            Swal.fire({
+              icon: "success",
+              title: "Inicio de sesión exitoso",
+              showConfirmButton: false,
+              timer: 2500
+            });
+            break;
         }
       },
       error: (err) => {

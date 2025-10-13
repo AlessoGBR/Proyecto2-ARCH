@@ -16,12 +16,12 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<List<Producto>> listarProductos() {
-        return ResponseEntity.ok(productoService.obtenerTodos());
+        return ResponseEntity.ok(productoService.findByEstadoAprobacion("aprobado"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> obtenerPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(productoService.obtenerPorId(id));
+    public ResponseEntity<List<Producto>> obtenerPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.findByVendedor_IdUsuario(id));
     }
 
     @PostMapping

@@ -11,9 +11,10 @@ import java.util.Map;
 public class JwtUtil {
     private final String SECRET_KEY = "mi-clave-secreta-super-larga-para-ecommerce-gt";
 
-    public String generarToken(String email, String rol) {
+    public String generarToken(String email, String rol, Integer idUsuario) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("rol", rol);
+        claims.put("idUsuario", idUsuario);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -40,5 +41,15 @@ public class JwtUtil {
         } catch (JwtException e) {
             return false;
         }
+    }
+
+    public Integer obtenerIdUsuarioDesdeToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("idUsuario", Integer.class);
     }
 }

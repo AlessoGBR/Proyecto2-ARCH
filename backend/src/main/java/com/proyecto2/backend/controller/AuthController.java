@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200") // permitir conexión desde Angular
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class AuthController {
     private final AuthService authService;
@@ -30,7 +30,7 @@ public class AuthController {
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("token", token);
         respuesta.put("rol", user.getRol().getNombre());
-
+        respuesta.put("idUsuario", user.getIdUsuario());
         return ResponseEntity.ok(respuesta);
     }
 

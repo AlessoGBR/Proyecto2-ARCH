@@ -23,11 +23,13 @@ export class Auth {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
+    localStorage.removeItem('idUsuario');
   }
 
-  guardarSesion(token: string, rol: string): void {
+  guardarSesion(token: string, rol: string, idUsuario:string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('rol', rol);
+    localStorage.setItem('idUsuario', idUsuario);
   }
 
   obtenerRol(): string | null {

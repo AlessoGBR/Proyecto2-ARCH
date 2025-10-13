@@ -1,0 +1,14 @@
+.carousel-item {
+  transition: transform 0.8s ease-in-out;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  min-width: 180px;
+  text-align: center;
+}
+
+h4 {
+  font-weight: 600;
+}
