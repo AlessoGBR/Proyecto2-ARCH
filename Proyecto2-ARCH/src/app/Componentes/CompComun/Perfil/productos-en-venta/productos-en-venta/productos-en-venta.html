@@ -1,0 +1,24 @@
+<h3>Mis productos en venta</h3>
+<div class="lista-productos">
+  <div class="producto-card" *ngFor="let producto of productos; let i = index" (click)="onProductoClick(producto, i)" style="cursor: pointer;">
+    <img [src]="producto.imageUrl" alt="{{ producto.nombre }}">
+    <div class="info">
+      <h5>{{ producto.nombre }}</h5>
+      <p>{{ producto.descripcion }}</p>
+      <p class="precio">Q {{ producto.price }}</p>
+      <p class="stock">stock: {{ producto.stock }}</p>
+    </div>
+  </div>
+</div>
+<h3>Mis productos sin aprobar</h3>
+<div class="lista-productos">
+  <div class="producto-card" *ngFor="let productosNoAprobados of productosNoAprobados; let i = index" (click)="onProductoClick(productosNoAprobados, i)" style="cursor: pointer;">
+    <img [src]="productosNoAprobados.imageUrl" alt="{{ productosNoAprobados.nombre }}">
+    <div class="info">
+      <h5>{{ productosNoAprobados.nombre }}</h5>
+      <p>{{ productosNoAprobados.descripcion }}</p>
+      <p class="precio">Q {{ productosNoAprobados.price }}</p>
+      <p class="stock">stock: {{ productosNoAprobados.stock }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="menu-lateral">
+  <div class="align-items-center">
+    <h5>Hola</h5>
+    <p>{{ this.usuario?.nombre }} {{ this.usuario?.apellido }}</p>
+    <p>{{this.usuario?.email}}</p>
+  </div>
+  <ul>
+    <li (click)="seleccionar('productos')" [class.activo]="vista === 'productos'">
+      🛒 Productos en venta
+    </li>
+    <li (click)="seleccionar('vender')" [class.activo]="vista === 'tarjetas'">
+      🛒 Vender producto
+    </li>
+    <li (click)="seleccionar('perfil')" [class.activo]="vista === 'perfil'">👤 Perfil</li>
+    <li (click)="seleccionar('pedidos')" [class.activo]="vista === 'pedidos'">📦 Pedidos</li>
+    <li (click)="seleccionar('tarjetas')" [class.activo]="vista === 'tarjetas'">
+      💳 Tarjetas guardadas
+    </li>
+    <li (click)="logout()">🚪 Cerrar sesion</li>
+  </ul>
+</div>

@@ -27,7 +27,6 @@ export class ProductoCard {
       });
       this.router.navigate(['/login']);
     } else {
-      // Lógica real de compra
       console.log('Producto agregado al carrito:', this.producto.nombre);
     }
   }

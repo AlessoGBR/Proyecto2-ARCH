@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { Producto } from '../../Objects/Producto/producto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductosService {
-  private apiUrl = 'http://localhost:8080/api/productos'; // endpoint del backend
+  private apiUrl = 'http://localhost:8080/api/productos';
 
   constructor(private http: HttpClient) {}
-  
+
   obtenerProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl);
   }
@@ -20,6 +20,14 @@ export class ProductosService {
   }
 
   obtenerProductosNoAprobados(id: number): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.apiUrl}/no-aprobados/${id}`);
+    return this.http.get<Producto[]>(`${this.apiUrl}/no-aprobados`);
+  }
+
+  buscarProductos(nombre: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/buscar`, { params: { nombre } });
+  }
+
+  crearProductoForm(form: FormData): Observable<Producto> {
+    return this.http.post<Producto>(`${this.apiUrl}/crear`, form);
   }
 }

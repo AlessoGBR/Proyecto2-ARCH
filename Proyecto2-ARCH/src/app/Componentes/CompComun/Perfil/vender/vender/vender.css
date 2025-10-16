@@ -1,0 +1,81 @@
+.vender-form {
+  max-width: 740px;
+  margin: 20px auto;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+.vender-form h2 {
+  margin-top: 0;
+}
+.field {
+  display: block;
+  margin-bottom: 12px;
+}
+.field span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.field input[type='text'],
+.field input[type='number'],
+.field textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.row {
+  display: inline;
+  gap: 20px;
+}
+.field.small {
+  flex: 1;
+}
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.categories button {
+  padding: 8px 12px;
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  background: #f7f7f7;
+  cursor: pointer;
+}
+.categories button.selected {
+  background: #007bff;
+  color: #fff;
+  border-color: #0066d6;
+}
+.radio {
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.preview img {
+  max-width: 160px;
+  max-height: 160px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.actions {
+  text-align: right;
+}
+.actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #28a745;
+  color: #fff;
+  cursor: pointer;
+}
+.actions button[disabled] {
+  background: #aaa;
+  cursor: not-allowed;
+}

@@ -1,0 +1,54 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  />
+</head>
+<header class="header-bar">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand">E-COMMERCE GT</a>
+      <div class="collapse navbar-collapse">
+        <div class="input-group w-50">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar productos..."
+            [(ngModel)]="busquedaNombre"
+            name="busquedaNombre"
+          />
+          <button class="btn btn-primary" type="button" (click)="buscarPorNombre()">
+            <i class="bi bi-search"></i>
+            Buscar
+          </button>
+        </div>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link btn btn-primary"
+              (click)="irACuenta()"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <i class="bi bi-person-circle"></i>
+              {{ this.nombreUsuario }}
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link btn btn-primary"
+              routerLink="/carrito"
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <i class="bi bi-cart-fill"></i>
+              CARRITO</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>

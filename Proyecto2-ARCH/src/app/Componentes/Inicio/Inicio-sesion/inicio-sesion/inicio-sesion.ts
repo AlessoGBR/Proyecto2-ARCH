@@ -25,12 +25,10 @@ export class InicioSesion {
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         console.log(res.idUsuario);
-        this.authService.guardarSesion(res.token, res.rol, res.idUsuario);
-
+        this.authService.guardarSesion(res.token, res.rol, res.idUsuario);     
         switch (res.rol) {
           case 'ADMINISTRADOR':
-            this.router.navigate(['/admin']);
-            
+            this.router.navigate(['/admin']);            
             break;
           case 'MODERADOR':
             this.router.navigate(['/moderador']);
@@ -59,5 +57,9 @@ export class InicioSesion {
         this.password = '';
       }
     });
+  }
+
+  regresar() {
+    this.router.navigate(['/inicio']);
   }
 }

@@ -1,10 +1,10 @@
-<div class="card h-100" *ngIf="producto.estadoAprobacion === 'aprobado'">
-  <img [src]="producto.imagen" class="card-img-top" alt="{{ producto.nombre }}">
+<div class="card" *ngIf="producto.estadoAprobacion === 'aprobado'" width="18: rem">
+  <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.nombre }}" >
   <div class="card-body">
     <h5 class="card-title">{{ producto.nombre }}</h5>
     <p class="card-text">{{ producto.descripcion }}</p>
-    <p class="card-text"><strong>Precio: </strong>Q{{ producto.precio }}</p>
-    <p class="card-text"><strong>Stock: </strong>Q{{ producto.stock }}</p>
+    <p class="card-text"><strong>Precio: </strong>Q{{ producto.price }}</p>
+    <p class="card-text"><strong>Cantidad disponible: </strong>{{ producto.stock }}</p>
     <button class="btn btn-success" (click)="comprar()">Comprar</button>
   </div>
 </div>

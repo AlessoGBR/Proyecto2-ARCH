@@ -1,0 +1,96 @@
+
+<form class="vender-form" (ngSubmit)="submitProduct()" #productForm="ngForm">
+    <h2>Agregar producto</h2>
+    <label class="field">
+        <span>Foto del producto</span>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" required />
+    </label>
+    <div class="preview" *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Vista previa del producto" />
+    </div>
+    <label class="field">
+        <span>Nombre</span>
+        <input
+            name="name"
+            type="text"
+            required
+            [(ngModel)]="product.name"
+            placeholder="Nombre del producto"
+        />
+    </label>
+    <label class="field">
+        <span>Descripción</span>
+        <textarea
+            name="description"
+            rows="4"
+            [(ngModel)]="product.description"
+            placeholder="Descripción del producto"
+        ></textarea>
+    </label>
+    <div class="row">
+        <label class="field small">
+            <span>Precio</span>
+            <input
+                name="price"
+                type="number"
+                min="0"
+                step="0.01"
+                required
+                [(ngModel)]="product.price"
+                placeholder="0.00"
+            />
+        </label>
+        <label class="field small">
+            <span>Stock</span>
+            <input
+                name="stock"
+                type="number"
+                min="0"
+                required
+                [(ngModel)]="product.stock"
+                placeholder="0"
+            />
+        </label>
+    </div>
+
+    <div class="field">
+        <span>Categoría</span>
+        <div class="categories">
+            <button
+                type="button"
+                *ngFor="let c of categorias"
+                (click)="selectCategory(c)"
+                [class.selected]="selectedCategory === c.nombreCategoria"
+            >
+                {{ c.nombreCategoria }}
+            </button>
+        </div>
+        <input type="hidden" name="category" [(ngModel)]="selectedCategory" />
+    </div> 
+    <div class="field">
+        <span>Estado</span>
+        <label class="radio">
+            <input
+                type="radio"
+                name="condition"
+                value="nuevo"
+                [(ngModel)]="product.condition"
+                required
+            />
+            Nuevo
+        </label>
+        <label class="radio">
+            <input
+                type="radio"
+                name="condition"
+                value="usado"
+                [(ngModel)]="product.condition"
+            />
+            Usado
+        </label>
+    </div>
+    <div class="actions">
+        <button type="submit" [disabled]="productForm.invalid">Guardar producto</button>
+    </div>
+</form>
+

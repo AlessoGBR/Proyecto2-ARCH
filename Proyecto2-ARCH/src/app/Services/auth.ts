@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { user } from '../Objects/User/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
-  private apiUrl = 'http://localhost:8080/api/auth'; // URL del backend Spring Boot
+  private apiUrl = 'http://localhost:8080/api/auth'; 
 
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
     return this.http.post(`${this.apiUrl}/login`, body);
+  }
+
+  obtenerUsuario(idUsuario: string): Observable<user> {     
+    return this.http.get<user>(`${this.apiUrl}/${idUsuario}`);
   }
 
   register(nombre: string, email: string, password: string): Observable<any> {
@@ -34,7 +39,7 @@ export class Auth {
 
   obtenerRol(): string | null {
     return localStorage.getItem('rol');
-  }
+  } 
 
   estaAutenticado(): boolean {
     return !!localStorage.getItem('token');

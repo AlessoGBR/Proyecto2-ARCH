@@ -1,0 +1,55 @@
+.header-bar {
+  background-color: #053d23a2; 
+  color: white;
+  padding: 0.8rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.navbar-brand:hover {
+  color: #e8e8e8;
+}
+
+.input-group .form-control {
+  border-radius: 20px 0 0 20px;
+  border: none;
+}
+
+.input-group .btn {
+  border-radius: 0 20px 20px 0;
+}
+
+.nav-link.btn {
+  background-color: white;
+  color: #fcfcfc;
+  border-radius: 25px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  margin-left: 10px;
+}
+
+.nav-link.btn:hover {
+  background-color: #e8f0ff;
+}
+
+.nav-link i {
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .input-group.w-50 {
+    width: 100% !important;
+    margin-top: 10px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+}

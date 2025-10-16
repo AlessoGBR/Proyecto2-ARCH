@@ -10,7 +10,6 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     List<Producto> findByEstadoAprobacion(String estadoAprobacion);
 
-    // (Opcional) Para listar productos de un usuario específico y aprobados
     List<Producto> findByVendedor_IdUsuarioAndEstadoAprobacion(Integer idUsuario, String estadoAprobacion);
 
 

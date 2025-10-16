@@ -1,0 +1,13 @@
+.cover {
+  object-fit: cover;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  object-fit: cover;
+  margin: 10px 0;
+  border-radius: 10px;
+  align-self: center;
+}

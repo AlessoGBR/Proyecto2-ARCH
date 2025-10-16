@@ -1,6 +1,7 @@
 package com.proyecto2.backend.controller;
 import com.proyecto2.backend.dto.LoginRequest;
 import com.proyecto2.backend.dto.RegisterRequest;
+import com.proyecto2.backend.dto.UsuarioDto;
 import com.proyecto2.backend.entity.Usuario;
 import com.proyecto2.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class AuthController {
         respuesta.put("rol", user.getRol().getNombre());
         respuesta.put("idUsuario", user.getIdUsuario());
         return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioDto> obtenerUsuario(@PathVariable Integer id) {
+        return ResponseEntity.ok(authService.getUsuarioDtoById(id));
     }
 
     @PostMapping("/register")

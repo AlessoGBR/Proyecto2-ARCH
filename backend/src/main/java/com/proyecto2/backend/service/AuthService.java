@@ -1,11 +1,16 @@
 package com.proyecto2.backend.service;
 import com.proyecto2.backend.dto.LoginRequest;
+import com.proyecto2.backend.dto.ProductDto;
 import com.proyecto2.backend.dto.RegisterRequest;
+import com.proyecto2.backend.dto.UsuarioDto;
+import com.proyecto2.backend.entity.Producto;
 import com.proyecto2.backend.entity.Usuario;
 import com.proyecto2.backend.repository.UsuarioRepository;
 import com.proyecto2.backend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +39,21 @@ public class AuthService {
     public Usuario getUsuarioByEmail(String email) {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    public UsuarioDto getUsuarioDtoById(Integer idUsuario) {
+        Optional<Usuario> userDto = usuarioRepository.findByIdUsuario(idUsuario);
+        return userDto.map(this::mapToUsuarioDto).orElse(null);
+    }
+
+    private UsuarioDto mapToUsuarioDto(Usuario user) {
+        return new UsuarioDto(
+                user.getNombre(),
+                user.getApellido(),
+                user.getEmail(),
+                user.getTelefono(),
+                user.getDireccion()
+        );
     }
 
 }

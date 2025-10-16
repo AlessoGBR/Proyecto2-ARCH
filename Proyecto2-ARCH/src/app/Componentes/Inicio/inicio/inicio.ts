@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,15 +10,16 @@ import { CategoriaService } from '../../../Services/Inicio/categoria-service';
 import { Categoria } from '../../../Objects/Categorias/categoria';
 import { Producto } from '../../../Objects/Producto/producto';
 import { Auth } from '../../../Services/auth';
+import Swal from 'sweetalert2';
+import { Header } from '../../Other/Header/header/header';
 @Component({
   selector: 'app-inicio',
-  imports: [RouterLink, RouterLinkActive, CommonModule, FormsModule, ProductoCard],
+  imports: [CommonModule, FormsModule, ProductoCard, Header],
   standalone: true,
   templateUrl: './inicio.html',
-  styleUrl: './inicio.css'
+  styleUrl: './inicio.css',
 })
 export class Inicio implements OnInit {
-
   usuarioActivo = !!localStorage.getItem('token');
   productos: any[] = [];
   mostarHeader: boolean = true;
@@ -30,32 +31,24 @@ export class Inicio implements OnInit {
   productosUsuario: Producto[] = [];
   productosUsuarioAgrupados: Producto[][] = [];
   productosUsuarioNoAprobados: Producto[][] = [];
+  busquedaNombre: string = '';
+  productosFiltrados: Producto[] = [];
+  productosFiltradosAgrupados: Producto[][] = [];
 
-  constructor(private productosService: ProductosService, private router: Router, 
-    private categoriasService: CategoriaService, private authService: Auth) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      const ruta = event.urlAfterRedirects;
-      if ( ruta.startsWith('/admin') || ruta.startsWith('/moderador') || ruta.startsWith('/logistica')) {
-        this.mostarHeader = false;
-      } else {
-        this.mostarHeader = true;
-      }
-      if (ruta.startsWith('/login') || ruta.startsWith('/Perfil')|| ruta.startsWith('/admin') || ruta.startsWith('/moderador') || ruta.startsWith('/logistica')) {
-        this.mostarArticulos = false;
-      } else {
-        this.mostarArticulos = true;
-      }
-
-      this.actualizarEstadoUsuario();
-    });
+  constructor(
+    private productosService: ProductosService,
+    private router: Router,
+    private categoriasService: CategoriaService,
+    private authService: Auth
+  ) {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.actualizarEstadoUsuario();
+      });
   }
-  
+
   ngOnInit() {
-    localStorage.removeItem('idUsuario');
-    localStorage.removeItem('rol');
-    localStorage.removeItem('token');
     this.actualizarEstadoUsuario();
     this.cargarCategorias();
     this.cargarProductosAprobados();
@@ -72,7 +65,7 @@ export class Inicio implements OnInit {
     this.categoriasService.obtenerCategorias().subscribe({
       next: (data) => {
         this.categorias = data;
-        this.categoriasAgrupadas = this.agruparEnFilas(data, 4);
+        this.categoriasAgrupadas = this.agruparEnFilas(data, 3);
       },
     });
   }
@@ -96,12 +89,11 @@ export class Inicio implements OnInit {
         },
       });
 
-      /*this.productosService.obtenerProductosNoAprobados(+idUsuario).subscribe({
+      this.productosService.obtenerProductosNoAprobados(+idUsuario).subscribe({
         next: (data) => {
           this.productosUsuarioNoAprobados = this.agruparEnFilas(data, 3);
         },
-        error: (err) => console.error('Error al cargar productos no aprobados:', err)
-      }); */
+      });
     }
   }
 
@@ -115,7 +107,6 @@ export class Inicio implements OnInit {
 
   irACuenta() {
     const token = localStorage.getItem('token');
-    
     if (token) {
       this.router.navigate(['/Perfil']);
     } else {
@@ -123,4 +114,36 @@ export class Inicio implements OnInit {
     }
   }
 
+  cerrarSesion() {
+    this.authService.logout();
+    this.usuarioActivo = false;
+    Swal.fire({
+      icon: 'success',
+      title: 'Sesión cerrada',
+      text: 'Has cerrado sesión exitosamente.',
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    this.router.navigate(['/login']);
+  }
+
+  buscarPorNombre() {
+    if (this.busquedaNombre.trim() === '') {
+      this.productosFiltrados = [];
+      this.productosFiltradosAgrupados = [];
+      return;
+    }
+    this.productosService.buscarProductos(this.busquedaNombre).subscribe({
+      next: (data) => {
+        this.productosFiltrados = data;
+        this.productosFiltradosAgrupados = this.agruparEnFilas(data, 3);
+      },
+    });
+  }
+
+  limpiarBusqueda() {
+    this.busquedaNombre = '';
+    this.productosFiltrados = [];
+    this.productosFiltradosAgrupados = [];
+  }
 }

@@ -1,1 +1,12 @@
-<p>perfil works!</p>
+<app-header></app-header>
+<div class="cuenta-container">
+  <app-menu-lateral (menuSeleccionado)="cambiarVista($event)"> </app-menu-lateral>
+
+  <div class="contenido">
+    <app-productos-en-venta *ngIf="vistaActual === 'productos'"></app-productos-en-venta>
+    <app-vender *ngIf="vistaActual === 'vender'"></app-vender>
+    <app-perfil-usuario *ngIf="vistaActual === 'perfil'"></app-perfil-usuario>
+    <app-pedidos *ngIf="vistaActual === 'pedidos'"></app-pedidos>
+    <app-tarjetas-guardadas *ngIf="vistaActual === 'tarjetas'"></app-tarjetas-guardadas>
+  </div>
+</div>
