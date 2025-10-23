@@ -7,13 +7,10 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inicio-sesion',
-  imports: [
-    CommonModule,
-    FormsModule
-],
+  imports: [CommonModule, FormsModule],
   templateUrl: './inicio-sesion.html',
   styleUrl: './inicio-sesion.css',
-  standalone: true
+  standalone: true,
 })
 export class InicioSesion {
   email = '';
@@ -25,10 +22,10 @@ export class InicioSesion {
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         console.log(res.idUsuario);
-        this.authService.guardarSesion(res.token, res.rol, res.idUsuario);     
+        this.authService.guardarSesion(res.token, res.rol, res.idUsuario);
         switch (res.rol) {
           case 'ADMINISTRADOR':
-            this.router.navigate(['/admin']);            
+            this.router.navigate(['/admin']);
             break;
           case 'MODERADOR':
             this.router.navigate(['/moderador']);
@@ -39,23 +36,23 @@ export class InicioSesion {
           default:
             this.router.navigate(['']);
             Swal.fire({
-              icon: "success",
-              title: "Inicio de sesión exitoso",
+              icon: 'success',
+              title: 'Inicio de sesión exitoso',
               showConfirmButton: false,
-              timer: 2500
+              timer: 2500,
             });
             break;
         }
       },
       error: (err) => {
         Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Usuario o contraseña incorrectos"
+          icon: 'error',
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
         });
         this.email = '';
         this.password = '';
-      }
+      },
     });
   }
 

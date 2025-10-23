@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h4 class="mb-4">Resultados para: "{{ terminoBusqueda }}"</h4>
+
+<div *ngIf="productos.length > 0; else sinResultados"></div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let producto of productos">
+            <div
+                class="card h-100 shadow-sm"
+                *ngIf="producto.estadoAprobacion === 'aprobado'"
+                (click)="comprar(producto.id)"
+                tabindex="0"
+                (keydown.enter)="comprar(producto.id)"
+                style="cursor: pointer;"
+                role="button"
+                aria-label="Comprar {{ producto.nombre }}"
+            >
+                <img
+                    [src]="producto.imageUrl"
+                    class="card-img-top"
+                    alt="{{ producto.nombre }}"
+                    style="height: 250px; object-fit: cover;"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text text-truncate">{{ producto.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> Q{{ producto.price }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <ng-template #sinResultados>
+    <p class="text-muted text-center mt-4">No se encontraron productos con ese nombre.</p>
+  </ng-template>
+</div>

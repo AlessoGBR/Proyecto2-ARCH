@@ -15,19 +15,35 @@ export class ProductosService {
     return this.http.get<Producto[]>(this.apiUrl);
   }
 
-  obtenerProducto(id: number): Observable<Producto[]> {
+  obtenerProduct(id: number): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/${id}`);
+  }
+
+  obtenerProducto(id: string): Observable<Producto> {
+    return this.http.get<Producto>(`${this.apiUrl}/producto/${id}`);
   }
 
   obtenerProductosNoAprobados(id: number): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/no-aprobados`);
   }
 
+  obtenerProductosDenegados(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/denegados`);
+  }
+
   buscarProductos(nombre: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.apiUrl}/buscar`, { params: { nombre } });
+    return this.http.get<Producto[]>(`${this.apiUrl}/buscar?nombre=${nombre}`);
+  }
+
+  buscarProductosPorCategoria(categoriaId: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/categoria/${categoriaId}`);
   }
 
   crearProductoForm(form: FormData): Observable<Producto> {
     return this.http.post<Producto>(`${this.apiUrl}/crear`, form);
+  }
+
+  actualizarProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/actualizar/${producto.id}`, producto);
   }
 }

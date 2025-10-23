@@ -1,0 +1,17 @@
+.card {
+  transition: transform 0.2s;
+  border: 1px solid #ddd;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-danger {
+  padding: 0.25rem 0.5rem;
+}
+
+.alert {
+  margin-top: 2rem;
+}

@@ -14,4 +14,8 @@ export class CategoriaService {
   obtenerCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.apiUrl);
   }
+
+  obtenerCategoria(id: string): Observable<Categoria> {
+    return this.http.get<Categoria>(`${this.apiUrl}/${id}`);
+  }
 }

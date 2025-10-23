@@ -1,0 +1,57 @@
+<div *ngIf="producto" class="container mt-4">
+  <div class="card shadow p-4">
+    <div class="row">
+      <div class="col-md-5">
+        <img [src]="producto.imageUrl" class="card-img-top mb-3" alt="{{ producto.nombre }}" />
+        <div class="mb-3">
+          <label class="form-label">Imagen (URL)</label>
+          <input type="text" [(ngModel)]="producto.imageUrl" class="form-control" />
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <h4>Editar Producto</h4>
+
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" [(ngModel)]="producto.nombre" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descripción</label>
+          <textarea [(ngModel)]="producto.descripcion" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Precio (Q)</label>
+            <input
+              type="number"
+              [(ngModel)]="producto.price"
+              class="form-control"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Stock</label>
+            <input
+              type="number"
+              [(ngModel)]="producto.stock"
+              class="form-control"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-success" (click)="guardarCambios()">Guardar</button>
+          <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

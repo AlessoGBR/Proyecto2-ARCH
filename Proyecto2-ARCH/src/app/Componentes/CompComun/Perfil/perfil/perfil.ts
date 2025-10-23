@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Auth } from '../../../../Services/auth';
 import Swal from 'sweetalert2';
-import { Header } from '../../../Other/Header/header/header';
 import { user } from '../../../../Objects/User/user';
 import { MenuLateral } from '../menu-lateral/menu-lateral/menu-lateral';
 import { ProductosEnVenta } from '../productos-en-venta/productos-en-venta/productos-en-venta';
@@ -13,7 +12,7 @@ import { Pedidos } from '../pedidos/pedidos/pedidos';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-perfil',
-  imports: [Header, MenuLateral, ProductosEnVenta, TarjetasGuardadas, PerfilUsuario, Pedidos, CommonModule, Vender],
+  imports: [ MenuLateral, ProductosEnVenta, TarjetasGuardadas, PerfilUsuario, Pedidos, CommonModule, Vender],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })

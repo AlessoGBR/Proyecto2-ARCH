@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
     List<Categoria> findAllBy();
+
+    Categoria findByIdCategoria(Integer idCategoria);
 }

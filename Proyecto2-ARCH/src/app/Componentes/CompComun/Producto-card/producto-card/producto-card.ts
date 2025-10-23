@@ -27,7 +27,7 @@ export class ProductoCard {
       });
       this.router.navigate(['/login']);
     } else {
-      console.log('Producto agregado al carrito:', this.producto.nombre);
+      this.router.navigate(['/view-product', this.producto.id]);
     }
   }
 }

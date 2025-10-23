@@ -1,10 +1,11 @@
 package com.proyecto2.backend.controller;
 import com.proyecto2.backend.dto.ProductDto;
 import com.proyecto2.backend.entity.Producto;
+import com.proyecto2.backend.entity.SolicitudProducto;
 import com.proyecto2.backend.entity.Usuario;
 import com.proyecto2.backend.repository.CategoriaRepository;
-import com.proyecto2.backend.repository.UsuarioRepository;
 import com.proyecto2.backend.service.ProductoService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,35 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.findByEstadoAprobacion("pendiente"));
     }
 
+    @GetMapping("/denegados")
+    public ResponseEntity<List<ProductDto>> listarProductosDenegados() {
+        return ResponseEntity.ok(productoService.findByEstadoAprobacion("rechazado"));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<ProductDto>> obtenerPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(productoService.findByVendedor_IdUsuario(id));
+    }
+
+    @GetMapping("/producto/{id}")
+    public ResponseEntity<ProductDto> obtenerProductoPorId(@PathVariable Integer id) {
+        ProductDto producto = productoService.obtenerPorId(id);
+        if (producto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(producto);
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ProductDto>> buscarPorNombre(@RequestParam String nombre) {
+        List<ProductDto> productos = productoService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<List<ProductDto>> buscarPorCategoria(@PathVariable String id) {
+        List<ProductDto> productos = productoService.buscarCategoria(id);
+        return ResponseEntity.ok(productos);
     }
 
     @PostMapping
@@ -52,6 +79,18 @@ public class ProductoController {
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         productoService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<ProductDto> actualizar(@RequestBody ProductDto producto, @PathVariable Integer id) {
+
+        try {
+            productoService.actualizar(producto);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @PostMapping(value = "/crear", consumes = {"multipart/form-data"})
@@ -87,6 +126,7 @@ public class ProductoController {
             }
 
             Producto guardado = productoService.guardar(producto);
+            productoService.crearSolicitudProducto(guardado);
             return ResponseEntity.ok(guardado);
 
         } catch (Exception e) {
@@ -108,6 +148,8 @@ public class ProductoController {
 
         return "http://localhost:8080/uploads/" + nombreArchivo;
     }
+
+
 
 
 }

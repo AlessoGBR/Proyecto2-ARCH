@@ -44,4 +44,14 @@ public class AuthController {
     public ResponseEntity<Usuario> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDto user) {
+        try {
+            Usuario usuario = authService.actualizarUsuario(id, user);
+            return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

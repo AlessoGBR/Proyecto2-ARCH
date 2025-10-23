@@ -1,1 +1,118 @@
-<p>cart works!</p>
+<div class="container-fluid mt-4 mb-5 px-4" *ngIf="carrito && carrito.items.length > 0; else vacio">
+  <div class="carrito-header mb-4">
+    <h2 class="carrito-title">
+      <i class="bi bi-cart-fill"></i> Tu carrito
+    </h2>
+    <span class="items-count">{{ carrito.items.length }} {{ carrito.items.length === 1 ? 'producto' : 'productos' }}</span>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="productos-lista">
+        <div *ngFor="let item of carrito.items; let i = index" 
+             class="producto-item">
+          <div class="producto-contenido">
+            <div class="producto-imagen-wrapper">
+              <img
+                [src]="item.imagen"
+                [alt]="item.nombreProducto"
+                class="producto-imagen"
+                onerror="this.src='assets/default-product.png'"
+              />
+            </div>
+
+            <div class="producto-info">
+              <h5 class="producto-nombre">{{ item.nombreProducto }}</h5>
+              <p class="producto-descripcion">{{ item.descripcion }}</p>
+              
+              <div class="producto-detalles">
+                <div class="detalle-item">
+                  <span class="detalle-label">Precio unitario:</span>
+                  <span class="detalle-valor">Q{{ item.precioUnitario | number : '1.2-2' }}</span>
+                </div>
+                
+                <div class="producto-detalles">
+                  <span class="cantidad-label">Cantidad:</span>
+                  <span class="cantidad-valor">{{ item.cantidad }}</span>
+                </div>
+              </div>
+
+              <div class="producto-footer">
+                <div class="subtotal">
+                  <span class="subtotal-label">Subtotal:</span>
+                  <span class="subtotal-valor">Q{{ item.precioUnitario * item.cantidad | number : '1.2-2' }}</span>
+                </div>
+                <button 
+                  class="btn-eliminar" 
+                  (click)="eliminarItem(item)"
+                  title="Eliminar producto">
+                  <i class="bi bi-trash"></i>
+                  <span>Eliminar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="resumen-pedido">
+        <div class="resumen-header">
+          <h4 class="resumen-titulo">Resumen del pedido</h4>
+        </div>
+        
+        <div class="resumen-body">
+          <div class="resumen-linea">
+            <span>Subtotal ({{ carrito.items.length }} productos)</span>
+            <span>Q{{ total | number : '1.2-2' }}</span>
+          </div>
+          
+          <hr class="my-3">
+          
+          <div class="resumen-total">
+            <span>Total</span>
+            <span class="total-valor">Q{{ total | number : '1.2-2' }}</span>
+          </div>
+        </div>
+        
+        <div class="resumen-footer">
+          <button 
+            class="btn btn-finalizar w-100 mb-2" 
+            (click)="realizarPago()">
+            <i class="bi bi-credit-card"></i>
+            Finalizar compra
+          </button>
+          
+          <button 
+            class="btn btn-seguir w-100 mb-2" 
+            (click)="irInicio()">
+            <i class="bi bi-arrow-left"></i>
+            Seguir comprando
+          </button>
+          
+          <button 
+            class="btn btn-vaciar w-100" 
+            (click)="vaciarCarrito()">
+            <i class="bi bi-trash"></i>
+            Vaciar carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #vacio>
+  <div class="carrito-vacio">
+    <div class="vacio-icono">
+      <i class="bi bi-cart-x"></i>
+    </div>
+    <h4 class="vacio-titulo">Tu carrito está vacío</h4>
+    <p class="vacio-texto">Agrega productos para empezar a comprar.</p>
+    <a routerLink="/inicio" class="btn btn-primary btn-lg" (click)="irInicio()">
+      <i class="bi bi-shop"></i>
+      Ir a la tienda
+    </a>
+  </div>
+</ng-template>

@@ -1,0 +1,161 @@
+<div class="container-fluid mt-4 mb-5 px-4">
+  <div class="checkout-header mb-4">
+    <h2 class="checkout-title"><i class="bi bi-credit-card-fill"></i> Finalizar compra</h2>
+    <a (click)="volver()" class="btn-volver">
+      <i class="bi bi-arrow-left"></i> Volver al carrito
+    </a>
+  </div>
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="checkout-card">
+        <div class="card-header-checkout">
+          <i class="bi bi-geo-alt-fill"></i>
+          <h4>Dirección de entrega</h4>
+        </div>
+        <div class="card-body-checkout">
+          <div class="form-group">
+            <label class="form-label">Dirección completa</label>
+            <input
+              type="text"
+              [(ngModel)]="direccion"
+              class="form-control-custom"
+              placeholder="Ingresa tu dirección de entrega"
+            />
+            <small class="form-hint">
+              <i class="bi bi-info-circle"></i>
+              Incluye calle, número, colonia y referencias
+            </small>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label">Ciudad</label>
+              <input
+                type="text"
+                [(ngModel)]="ciudad"
+                class="form-control-custom"
+                placeholder="Ciudad"
+              />
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label class="form-label">Teléfono de contacto</label>
+            <input
+              type="tel"
+              [(ngModel)]="telefono"
+              class="form-control-custom"
+              placeholder="0000-0000"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="checkout-card">
+        <div class="card-header-checkout">
+          <i class="bi bi-credit-card"></i>
+          <h4>Método de pago</h4>
+        </div>
+        <div class="card-body-checkout">
+          <div class="tarjetas-lista" *ngIf="tarjetas && tarjetas.length > 0">
+            <div
+              *ngFor="let tarjeta of tarjetas"
+              class="tarjeta-item"
+              [class.selected]="tarjetaSeleccionada?.id === tarjeta.id"
+              (click)="seleccionarTarjeta(tarjeta)"
+            >
+              <input
+                type="radio"
+                name="tarjeta"
+                [value]="tarjeta"
+                [(ngModel)]="tarjetaSeleccionada"
+                [id]="'tarjeta-' + tarjeta.id"
+              />
+
+              <label [for]="'tarjeta-' + tarjeta.id" class="tarjeta-content">
+                <div class="tarjeta-icon">
+                  <i
+                    class="bi"
+                    [ngClass]="{
+                      'bi-credit-card-2-front': tarjeta.tipo === 'Visa',
+                      'bi-credit-card-fill': tarjeta.tipo === 'Mastercard',
+                      'bi-credit-card': tarjeta.tipo === 'Débito'
+                    }"
+                  ></i>
+                </div>
+                <div class="tarjeta-info">
+                  <span class="tarjeta-numero">•••• •••• •••• {{ tarjeta.ultimos4Digitos }}</span>
+                  <span class="tarjeta-tipo">{{ tarjeta.tipo }}</span>
+                </div>
+                <div class="tarjeta-check">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="checkout-card">
+        <div class="card-header-checkout">
+          <i class="bi bi-bag-check-fill"></i>
+          <h4>Productos ({{ carrito?.items?.length || 0 }})</h4>
+        </div>
+        <div class="card-body-checkout">
+          <div class="productos-checkout-lista">
+            <div *ngFor="let item of carrito?.items" class="producto-checkout-item">
+              <div class="producto-checkout-imagen">
+                <img
+                  [src]="item.imagen"
+                  [alt]="item.nombreProducto"
+                  onerror="this.src='assets/default-product.png'"
+                />
+              </div>
+
+              <div class="producto-checkout-info">
+                <h6 class="producto-checkout-nombre">{{ item.nombreProducto }}</h6>
+                <p class="producto-checkout-descripcion">{{ item.descripcion }}</p>
+              </div>
+
+              <div class="producto-checkout-cantidad">
+                <span>x{{ item.cantidad }}</span>
+              </div>
+
+              <div class="producto-checkout-precio">
+                <span class="precio-unitario">Q{{ item.precioUnitario | number : '1.2-2' }}</span>
+                <span class="precio-total"
+                  >Q{{ item.precioUnitario * item.cantidad | number : '1.2-2' }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="resumen-compra">
+        <div class="resumen-header">
+          <h4 class="resumen-titulo">Resumen de compra</h4>
+        </div>
+        <hr class="my-3" />
+        <div class="resumen-total">
+          <span>Total a pagar</span>
+          <span class="total-valor">Q{{ total | number : '1.2-2' }}</span>
+        </div>
+        <div class="info-seguridad">
+          <i class="bi bi-shield-check"></i>
+          <span>Compra 100% segura y protegida</span>
+        </div>
+      </div>
+      <div class="resumen-footer">
+        <button
+          class="btn-finalizar-compra w-100"
+          [disabled]="!tarjetaSeleccionada || !direccion"
+          (click)="realizarCompra()"
+        >
+          <i class="bi bi-check-circle-fill"></i>
+          Confirmar pedido
+        </button>
+      </div>
+    </div>    
+  </div>
+</div>

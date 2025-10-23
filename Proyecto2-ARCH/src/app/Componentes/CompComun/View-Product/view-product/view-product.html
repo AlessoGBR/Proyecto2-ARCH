@@ -1,0 +1,64 @@
+<div *ngIf="producto" class="container mt-4">
+  <div class="card shadow p-4">
+    <div class="row">
+      <div class="col-md-5">
+        <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.nombre }}" />
+      </div>
+
+      <div class="col-md-7">
+        <h2>{{ producto.nombre }}</h2>
+        <p>{{ producto.descripcion }}</p>
+        <p><strong>Precio:</strong> Q{{ producto.price }}</p>
+        <p><strong>Cantidad disponible:</strong> {{ producto.stock }}</p>
+
+        <p><strong>Promedio de calificación:</strong> ⭐ {{ promedio | number : '1.1-1' }}/5</p>
+
+        <div class="input-group mb-3" style="max-width: 200px">
+          <button class="btn btn-outline-secondary" (click)="disminuirCantidad()">-</button>
+          <input
+            type="number"
+            [(ngModel)]="cantidad"
+            class="form-control text-center"
+            [min]="1"
+            [max]="producto.stock"
+          />
+          <button class="btn btn-outline-secondary" (click)="aumentarCantidad()">+</button>
+        </div>
+
+        <button class="btn btn-success" (click)="addToCart()">
+          <i class="bi bi-cart-fill"></i> Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4 p-4 shadow">
+    <h4>Opiniones del producto</h4>
+    <div *ngIf="calificaciones.length > 0; else sinOpiniones">
+      <div *ngFor="let c of calificaciones" class="border-bottom pb-2 mb-2">
+        <p>
+          <strong>⭐ {{ c.puntuacion }}</strong> - {{ c.comentario }}
+        </p>
+        <small class="text-muted">{{ c.fechaCalificacion }}</small>
+      </div>
+    </div>
+
+    <ng-template #sinOpiniones>
+      <p class="text-muted">Aún no hay calificaciones.</p>
+    </ng-template>
+
+    <div class="mt-3">
+      <h5>Deja tu calificación</h5>
+      <select #puntuacion class="form-select w-auto d-inline-block">
+        <option *ngFor="let n of [1, 2, 3, 4, 5]" [value]="n">{{ n }} ⭐</option>
+      </select>
+      <input #comentario type="text" class="form-control mt-2" placeholder="Tu comentario..." />
+      <button
+        class="btn btn-primary mt-2"
+        (click)="agregarCalificacion(puntuacion.value, comentario.value)"
+      >
+        Enviar calificación
+      </button>
+    </div>
+  </div>
+</div>

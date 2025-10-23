@@ -5,6 +5,7 @@ import { Auth } from '../../../../Services/auth';
 import Swal from 'sweetalert2';
 import { Producto } from '../../../../Objects/Producto/producto';
 import { ProductosService } from '../../../../Services/Productos/productos-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,11 @@ export class Header implements OnInit {
   productosFiltradosAgrupados: Producto[][] = [];
   nombreUsuario: string = 'MI CUENTA';
 
-  constructor(private authService: Auth, private productosService: ProductosService) {}
+  constructor(
+    private authService: Auth,
+    private productosService: ProductosService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.verificarUsuario();
@@ -33,30 +38,26 @@ export class Header implements OnInit {
     if (token && tipoUsuario && idUsuario) {
       this.authService.obtenerUsuario(idUsuario).subscribe({
         next: (usuario) => {
-          this.nombreUsuario = usuario.nombre + ' '+usuario.apellido;
+          this.nombreUsuario = usuario.nombre + ' ' + usuario.apellido;
         },
         error: (error) => {
           console.error('Error al obtener usuario:', error);
           this.nombreUsuario = 'MI CUENTA';
-        }
+        },
       });
     } else {
       this.nombreUsuario = 'MI CUENTA';
     }
-  } 
+  }
 
   buscarPorNombre() {
-    if (this.busquedaNombre.trim() === '') {
-      this.productosFiltrados = [];
-      this.productosFiltradosAgrupados = [];
-      return;
-    }
-    this.productosService.buscarProductos(this.busquedaNombre).subscribe({
-      next: (data) => {
-        this.productosFiltrados = data;
-        this.productosFiltradosAgrupados = this.agruparEnFilas(data, 3);
-      },
-    });
+    const termino = this.busquedaNombre.trim();
+
+    if (termino === '') return;
+
+    this.router.navigate(['/busqueda'], { queryParams: { nombre: termino } });
+
+    this.busquedaNombre = '';
   }
 
   cerrarSesion() {
@@ -87,11 +88,12 @@ export class Header implements OnInit {
     }
   }
 
-  private agruparEnFilas<T>(lista: T[], tamano: number): T[][] {
-    const grupos: T[][] = [];
-    for (let i = 0; i < lista.length; i += tamano) {
-      grupos.push(lista.slice(i, i + tamano));
-    }
-    return grupos;
+  irAInicio() {
+    window.location.href = '/inicio';
   }
+
+  irACarrito() {
+    window.location.href = '/carrito';
+  }
+
 }

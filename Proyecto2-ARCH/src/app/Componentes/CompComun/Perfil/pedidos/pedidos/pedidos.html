@@ -1,1 +1,35 @@
-<p>pedidos works!</p>
+<div class="container mt-4">
+  <h2 class="mb-3">📦 Mis Pedidos</h2>
+
+  <div *ngIf="cargando" class="text-center">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && pedidos.length === 0" class="text-center mt-4">
+    <p class="text-muted">No tienes pedidos aún.</p>
+  </div>
+
+  <div *ngFor="let pedido of pedidos" class="pedido-card card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Pedido #{{ pedido.idPedido }}</h5>
+      <p class="card-text">
+        <strong>Fecha del pedido:</strong> {{ pedido.fechaPedido | date : 'shortDate' }} <br />
+        <strong>Fecha estimada de entrega:</strong> {{ pedido.fechaEntregaEstimada | date : 'shortDate' }} <br />
+        <strong>Estado:</strong>
+        <span
+          class="badge"
+          [ngClass]="{
+            'bg-warning text-dark': pedido.estado === 'en curso',
+            'bg-success': pedido.estado === 'entregado'
+          }"
+        >
+          {{ pedido.estado | titlecase }}
+        </span>
+      </p>      
+      <hr />
+      <p class="fw-bold text-end">Total: Q{{ pedido.total }}</p>
+    </div>
+  </div>
+</div>

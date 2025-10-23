@@ -1,73 +1,113 @@
-<app-header></app-header>
-<div class="container mt-4" *ngIf="mostarArticulos">
-  <section class="mb-5">
-    <h4 class="mb-3">Categorías</h4>
-    <div id="carouselCategorias" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div
-          class="carousel-item"
-          *ngFor="let grupo of categoriasAgrupadas; let i = index"
-          [class.active]="i === 0"
-        >
-          <div class="d-flex justify-content-center gap-3">
-            <div *ngFor="let cat of grupo" class="card p-3 text-center" style="width: 10rem">
-              <h6>{{ cat.nombreCategoria }}</h6>
+<div class="container mt-4">
+  <section class="mb-5" *ngIf="hayCategorias()">
+    <div class="section-header">
+      <h4 class="section-title">Categorías</h4>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div
+        id="carouselCategorias"
+        class="carousel slide"
+        data-bs-ride="false"
+        data-bs-interval="false"
+      >
+        <div class="carousel-inner">
+          <div
+            class="carousel-item"
+            *ngFor="let grupo of categoriasAgrupadas; let i = index"
+            [class.active]="i === 0"
+          >
+            <div class="categorias-grid">
+              <div
+                *ngFor="let cat of grupo; let idx = index"
+                class="categoria-card-simple"
+                (click)="verCategoria(cat)"
+                [style.animation-delay]="idx * 0.1 + 's'"
+              >
+                <div
+                  class="categoria-icon-simple"
+                  [attr.data-initial]="getInitial(cat.nombreCategoria)"
+                >
+                  <span class="categoria-initial">{{ getInitial(cat.nombreCategoria) }}</span>
+                </div>
+                <span class="categoria-nombre">{{ cat.nombreCategoria }}</span>
+              </div>
             </div>
           </div>
         </div>
+
+        <button
+          *ngIf="mostrarControles(categoriasAgrupadas)"
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselCategorias"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-icon">‹</span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button
+          *ngIf="mostrarControles(categoriasAgrupadas)"
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselCategorias"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-icon">›</span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselCategorias"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselCategorias"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
   </section>
-
   <section class="mb-5">
-    <h4 class="mb-3">Productos recientes</h4>
-    <div id="carouselAprobados" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div
-          class="carousel-item"
-          *ngFor="let grupo of productosAprobadosAgrupados; let i = index"
-          [class.active]="i === 0"
-        >
-          <div class="d-flex justify-content-center gap-3">
-            <app-producto-card
-              *ngFor="let producto of grupo"
-              [producto]="producto"
-            ></app-producto-card>
+    <div class="section-header">
+      <h4 class="section-title">Productos recientes</h4>
+      <a href="#" class="ver-todo">Ver todo ›</a>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div
+        id="carouselAprobados"
+        class="carousel slide"
+        data-bs-ride="false"
+        data-bs-interval="false"
+      >
+        <div class="carousel-inner">
+          <div
+            class="carousel-item"
+            *ngFor="let grupo of productosAprobadosAgrupados; let i = index"
+            [class.active]="i === 0"
+          >
+            <div class="productos-grid">
+              <app-producto-card
+                *ngFor="let producto of grupo"
+                [producto]="producto"
+              ></app-producto-card>
+            </div>
           </div>
         </div>
+
+        <button
+          *ngIf="productosAprobadosAgrupados.length > 1"
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselAprobados"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-icon">‹</span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button
+          *ngIf="productosAprobadosAgrupados.length > 1"
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselAprobados"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-icon">›</span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselAprobados"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselAprobados"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
-  </section>  
+  </section>
 </div>

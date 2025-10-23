@@ -4,10 +4,7 @@ import com.proyecto2.backend.entity.Categoria;
 import com.proyecto2.backend.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,10 @@ public class CategoriaController {
     @GetMapping
     public ResponseEntity<List<Categoria>> getAll() {
         return ResponseEntity.ok(categoriaService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(categoriaService.findById(id));
     }
 }

@@ -1,1 +1,39 @@
-<p>tarjetas-guardadas works!</p>
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-between align-items-center">
+      <h3>Mis Tarjetas Guardadas</h3>
+      <button class="btn btn-primary" (click)="agregarNuevaTarjeta()">
+        <i class="bi bi-plus-circle"></i>
+        Agregar Tarjeta
+      </button>   
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let tarjeta of tarjetasGuardadas">
+      <div class="card" [ngClass]="{'border-primary': tarjeta.principal}">
+        <div class="card-body">          
+          <h5 class="card-title">**** **** **** {{ tarjeta.ultimos4Digitos }}</h5>
+          <p class="card-text">
+            <i class="bi bi-credit-card me-2"></i>
+            Vence: {{ tarjeta.expiracion }}
+          </p>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">{{ tarjeta.titular }}</span>
+            <button class="btn btn-danger btn-sm" (click)="eliminarTarjeta(tarjeta.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+            <button *ngIf="!tarjeta.principal" class="btn btn-secondary btn-sm" (click)="establecerPrincipal(tarjeta.id!)">
+              <i class="bi bi-star"></i> Principal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 text-center" *ngIf="!tarjetasGuardadas?.length">
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>
+        No tienes tarjetas guardadas. ¡Agrega una nueva tarjeta!
+      </div>
+    </div>
+  </div>
+</div>

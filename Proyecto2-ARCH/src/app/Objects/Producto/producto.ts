@@ -8,4 +8,5 @@ export interface Producto {
   categoryName: string;
   usuarioId: number;
   stock: number;
+  username: string;
 }

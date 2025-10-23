@@ -44,4 +44,8 @@ export class Auth {
   estaAutenticado(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  actualizarUsuario(usuario: user, id : string): Observable<user> {
+    return this.http.put<user>(`${this.apiUrl}/actualizar/${id}`, usuario);
+  }
 }

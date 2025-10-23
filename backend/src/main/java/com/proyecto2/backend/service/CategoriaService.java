@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,5 +16,9 @@ public class CategoriaService {
 
     public List<Categoria> findAll() {
         return categoriaRepository.findAll();
+    }
+
+    public Categoria findById(Integer id) {
+        return categoriaRepository.findByIdCategoria(id);
     }
 }

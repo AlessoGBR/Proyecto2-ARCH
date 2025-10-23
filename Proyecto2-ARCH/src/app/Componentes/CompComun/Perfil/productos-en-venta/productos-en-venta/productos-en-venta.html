@@ -22,3 +22,15 @@
     </div>
   </div>
 </div>
+<h3>Mis productos rechazados</h3>
+<div class="lista-productos">
+  <div class="producto-card" *ngFor="let productosDenegados of productosDenegados; let i = index" (click)="onProductoClick(productosDenegados, i)" style="cursor: pointer;">
+    <img [src]="productosDenegados.imageUrl" alt="{{ productosDenegados.nombre }}">
+    <div class="info">
+      <h5>{{ productosDenegados.nombre }}</h5>
+      <p>{{ productosDenegados.descripcion }}</p>
+      <p class="precio">Q {{ productosDenegados.price }}</p>
+      <p class="stock">stock: {{ productosDenegados.stock }}</p>
+    </div>
+  </div>
+</div>

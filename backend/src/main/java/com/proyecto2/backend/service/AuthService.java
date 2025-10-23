@@ -1,9 +1,8 @@
 package com.proyecto2.backend.service;
+import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
 import com.proyecto2.backend.dto.LoginRequest;
-import com.proyecto2.backend.dto.ProductDto;
 import com.proyecto2.backend.dto.RegisterRequest;
 import com.proyecto2.backend.dto.UsuarioDto;
-import com.proyecto2.backend.entity.Producto;
 import com.proyecto2.backend.entity.Usuario;
 import com.proyecto2.backend.repository.UsuarioRepository;
 import com.proyecto2.backend.util.JwtUtil;
@@ -46,14 +45,41 @@ public class AuthService {
         return userDto.map(this::mapToUsuarioDto).orElse(null);
     }
 
+    public Usuario getUsuarioById(Integer idUsuario) {
+        Optional<Usuario> userDto = usuarioRepository.findByIdUsuario(idUsuario);
+        return userDto.orElse(null);
+    }
+
+    public Usuario actualizarUsuario(Integer id,UsuarioDto usuarioDto) {
+        Usuario user = usuarioRepository.findByIdUsuario(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario user2 = mapToUsuario(usuarioDto);
+        user.setNombre(user2.getNombre());
+        user.setApellido(user2.getApellido());
+        user.setEmail(user2.getEmail());
+        user.setTelefono(user2.getTelefono());
+        user.setDireccion(user2.getDireccion());
+        return   usuarioRepository.save(user);
+    }
+
     private UsuarioDto mapToUsuarioDto(Usuario user) {
         return new UsuarioDto(
                 user.getNombre(),
                 user.getApellido(),
                 user.getEmail(),
                 user.getTelefono(),
-                user.getDireccion()
+                user.getDireccion(),
+                user.getIdUsuario()
         );
+    }
+
+    private Usuario mapToUsuario(UsuarioDto userDto) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(userDto.nombre());
+        usuario.setApellido(userDto.apellido());
+        usuario.setEmail(userDto.email());
+        usuario.setTelefono(userDto.telefono());
+        usuario.setDireccion(userDto.direccion());
+        return  usuario;
     }
 
 }
