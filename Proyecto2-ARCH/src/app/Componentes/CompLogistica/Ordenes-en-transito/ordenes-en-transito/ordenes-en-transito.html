@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <h5>Pedidos entregados</h5>
+  <button (click)="regresar()" class="btn btn-primary">Regresar</button>
+  <div class="card shadow p-4">
+    <div *ngIf="pedidos.length === 0" class="text-center text-muted">
+      <i class="bi bi-box-seam"></i> No hay pedidos en curso
+    </div>
+
+    <div *ngFor="let pedido of pedidos" class="card mb-3 shadow-sm p-3 border-0">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <p><strong>Total:</strong> Q{{ pedido.total }}</p>
+          <p><strong>Fecha pedido:</strong>{{ pedido.fechaPedido }}</p>
+          <p><strong>Fecha estimada:</strong> {{ pedido.fechaEntregaEstimada }}</p>
+          <p><strong>Dirección:</strong> {{ pedido.direccionEntrega }}</p>
+        </div>
+
+        <div class="col-md-4 text-end">
+          <input type="date" [(ngModel)]="fechaNueva[pedido.idPedido!]" class="form-control mb-2" />
+          <button
+            class="btn btn-outline-primary btn-sm me-2"
+            (click)="actualizarFecha(pedido.idPedido!)"
+          >
+            <i class="bi bi-calendar-check"></i> Actualizar fecha
+          </button>
+          <button class="btn btn-success btn-sm" (click)="marcarEntregado(pedido.idPedido!)">
+            <i class="bi bi-truck"></i> Entregado
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

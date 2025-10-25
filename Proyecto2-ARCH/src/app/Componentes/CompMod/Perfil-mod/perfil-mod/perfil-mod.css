@@ -1,0 +1,11 @@
+.cuenta-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.contenido {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}

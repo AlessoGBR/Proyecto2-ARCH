@@ -25,21 +25,23 @@ export class InicioSesion {
         this.authService.guardarSesion(res.token, res.rol, res.idUsuario);
         switch (res.rol) {
           case 'ADMINISTRADOR':
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin']).then(() => {
+              setTimeout(() => window.location.reload(), 30);
+            });
             break;
           case 'MODERADOR':
-            this.router.navigate(['/moderador']);
+            this.router.navigate(['/mod']).then(() => {
+              setTimeout(() => window.location.reload(), 30);
+            });
             break;
           case 'LOGISTICA':
-            this.router.navigate(['/logistica']);
+            this.router.navigate(['/logistica']).then(() => {
+              setTimeout(() => window.location.reload(), 30);
+            });
             break;
           default:
-            this.router.navigate(['']);
-            Swal.fire({
-              icon: 'success',
-              title: 'Inicio de sesión exitoso',
-              showConfirmButton: false,
-              timer: 2500,
+            this.router.navigate(['']).then(() => {
+              setTimeout(() => window.location.reload(), 30);
             });
             break;
         }

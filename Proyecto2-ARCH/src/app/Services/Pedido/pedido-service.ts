@@ -17,4 +17,20 @@ export class PedidoService {
   obtenerPedidosPorUsuario(idUsuario: number): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(`${this.apiUrl}/usuario/${idUsuario}`);
   }
+
+  obtenerPedidosEnCurso(): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(`${this.apiUrl}/en-curso`);
+  }
+
+  obtenerPedidosEntregados(): Observable<Pedido[]>{
+    return this.http.get<Pedido[]>(`${this.apiUrl}/entregados`);
+  }
+
+  actualizarEntrega(id :number): Observable<Pedido>{
+    return this.http.put<Pedido>(`${this.apiUrl}/entregado/${id}`, {});
+  }
+
+  actualizarFechaEntrega(id: number, nuevaFecha: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/actualizar-fecha/${id}?nuevaFecha=${nuevaFecha}`, {});
+  }
 }

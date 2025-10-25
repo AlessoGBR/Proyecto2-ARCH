@@ -13,4 +13,5 @@ public class DetallePedidoDto {
     private String imagenUrl;
     private Double precioUnitario;
     private Double subtotal;
+    private Integer idPedido;
 }

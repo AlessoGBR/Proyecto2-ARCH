@@ -26,9 +26,9 @@ export class MenuLateral implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'No se pudo encontrar usuario',
-          showConfirmButton: true
+          showConfirmButton: true,
         });
-      },      
+      },
     });
   }
 
@@ -45,6 +45,8 @@ export class MenuLateral implements OnInit {
       showConfirmButton: false,
       timer: 1500,
     });
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/inicio']).then(() => {
+      setTimeout(() => window.location.reload(), 1500);
+    });
   }
 }

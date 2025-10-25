@@ -5,6 +5,8 @@ import { Categoria } from '../../../../../Objects/Categorias/categoria';
 import { CategoriaService } from '../../../../../Services/Inicio/categoria-service';
 import Swal from 'sweetalert2';
 import { ProductosService } from '../../../../../Services/Productos/productos-service';
+import { Auth } from '../../../../../Services/auth';
+import { user } from '../../../../../Objects/User/user';
 
 @Component({
   selector: 'app-vender',
@@ -25,21 +27,32 @@ export class Vender implements OnInit {
   maxImages: number = 5;
   images: { file: File; url: string }[] = [];
   imagePreview: any;
+  usuario: user | null = null;
 
   errors: string[] = [];
 
   constructor(
     private categoriasService: CategoriaService,
-    private productoService: ProductosService
+    private productoService: ProductosService,
+    private auth: Auth
   ) {}
 
   ngOnInit(): void {
+
     this.categoriasService.obtenerCategorias().subscribe({
       next: (data) => {
         this.categorias = data;
       },
       error: (err) => {
         console.error('Error al cargar categorías:', err);
+      },
+    });
+    this.auth.obtenerUsuario(localStorage.getItem('idUsuario')!).subscribe({
+      next: (data) => {
+        this.usuario = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar usuario:', err);
       },
     });
   }
@@ -126,7 +139,7 @@ export class Vender implements OnInit {
           text: 'Ocurrió un error al enviar el producto. Inténtalo de nuevo más tarde.',
         });
       },
-    }); 
+    });
   }
 
   private obtenerExtension(nombre: string): string {

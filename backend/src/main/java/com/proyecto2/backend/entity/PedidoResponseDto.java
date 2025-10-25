@@ -16,5 +16,6 @@ public class PedidoResponseDto {
     private String direccionEntrega;
     private Date fechaPedido;
     private Date fechaEntregaEstimada;
+    private Date fechaEntrega;
     private List<DetallePedidoDto> detalles;
 }

@@ -28,7 +28,7 @@ export class ProductosEnVenta implements OnInit {
         next: (data) => (this.productosNoAprobados = data),
         error: (err) => console.error('Error al obtener productos no aprobados:', err),
       });
-      this.productosService.obtenerProductosDenegados().subscribe({
+      this.productosService.obtenerProductosDenegadosId(idUsuario).subscribe({
         next: (data) => (this.productosDenegados = data),
         error: (err) => console.error('Error al obtener productos denegados:', err),
       });

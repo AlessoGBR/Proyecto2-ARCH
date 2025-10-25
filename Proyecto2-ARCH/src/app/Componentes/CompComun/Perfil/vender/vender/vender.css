@@ -79,3 +79,14 @@
   background: #aaa;
   cursor: not-allowed;
 }
+
+.alert {
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert i {
+  font-size: 3rem;
+}

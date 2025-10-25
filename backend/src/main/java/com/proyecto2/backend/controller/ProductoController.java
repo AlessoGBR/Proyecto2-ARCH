@@ -44,6 +44,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.findByEstadoAprobacion("rechazado"));
     }
 
+    @GetMapping("/denegados/{id}")
+    public ResponseEntity<List<ProductDto>> listarProductosDenegadosId(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.findByEstadoAprobacionId("rechazado", id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<ProductDto>> obtenerPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(productoService.findByVendedor_IdUsuario(id));

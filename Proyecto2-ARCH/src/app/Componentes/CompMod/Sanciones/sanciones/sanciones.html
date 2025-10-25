@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 600px">
+    <h3 class="text-center text-danger fw-bold mb-4">Sancionar a: {{usuario?.nombre}}</h3>
+
+    <div class="form-group mb-3">
+      <label>Motivo de la sanción:</label>
+      <textarea [(ngModel)]="motivo" class="form-control" rows="3" placeholder="Escribe el motivo..."></textarea>
+    </div>
+
+    <div class="form-group mb-4">
+      <label>Fecha fin de sanción:</label>
+      <input [(ngModel)]="fechaFin" type="date" class="form-control" />
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-outline-secondary" (click)="regresar()">
+        Cancelar
+      </button>
+      <button class="btn btn-danger" (click)="sancionar()">
+        <i class="bi bi-exclamation-triangle"></i> Aplicar sanción
+      </button>
+    </div>
+  </div>
+</div>

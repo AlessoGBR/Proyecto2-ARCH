@@ -1,0 +1,58 @@
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="mb-4 text-center text-success fw-bold">Panel de Moderador</h2>
+
+    <div class="d-flex justify-content-center mb-3 gap-3">
+      <button
+        class="btn"
+        [class.btn-success]="opcionSeleccionada === 'sin'"
+        [class.btn-outline-success]="opcionSeleccionada !== 'sin'"
+        (click)="cambiarOpcion('sin')"
+      >
+        Usuarios sin sanción
+      </button>
+      <button
+        class="btn"
+        [class.btn-danger]="opcionSeleccionada === 'con'"
+        [class.btn-outline-danger]="opcionSeleccionada !== 'con'"
+        (click)="cambiarOpcion('con')"
+      >
+        Usuarios sancionados
+      </button>
+      <button class="btn btn-secondary" (click)="regresar()">Regresar</button>
+    </div>
+
+    <div *ngIf="usuarios.length === 0" class="text-center text-muted mt-3">
+      <i class="bi bi-exclamation-circle"></i> No hay usuarios para mostrar
+    </div>
+
+    <div class="row mt-4">
+      <div *ngFor="let usuario of usuarios" class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm p-3 border-0">
+          <h5 class="text-success fw-bold">{{ usuario.nombre }} {{ usuario.apellido }}</h5>
+          <p><i class="bi bi-envelope"></i> {{ usuario.email }}</p>
+          <p><i class="bi bi-telephone"></i> {{ usuario.telefono }}</p>
+          <p><i class="bi bi-geo-alt"></i> {{ usuario.direccion }}</p>
+
+          <div class="mt-auto text-center">
+            <button
+              *ngIf="opcionSeleccionada === 'sin'"
+              class="btn btn-outline-danger btn-sm"
+              (click)="sancionarUsuario(usuario)"
+            >
+              <i class="bi bi-exclamation-triangle"></i> Sancionar
+            </button>
+
+            <button
+              *ngIf="opcionSeleccionada === 'con'"
+              class="btn btn-outline-success btn-sm"
+              (click)="quitarSancion(usuario)"
+            >
+              <i class="bi bi-check-circle"></i> Quitar sanción
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

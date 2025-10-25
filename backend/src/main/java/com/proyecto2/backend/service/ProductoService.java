@@ -26,6 +26,12 @@ public class ProductoService {
 
     }
 
+    public List<ProductDto> findByEstadoAprobacionId(String estadoAprobacion, Integer id) {
+        List<Producto> productoDtos =  productoRepository.findByEstadoAprobacionAndVendedor_IdUsuario(estadoAprobacion,id);
+        return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
+
+    }
+
     public  List<ProductDto> findByVendedor_IdUsuario(Integer idUsuario) {
         List<Producto> productoDtos = productoRepository.findByVendedor_IdUsuarioAndEstadoAprobacion(idUsuario, "aprobado");
         return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
@@ -47,7 +53,7 @@ public class ProductoService {
         productoDto.setDescripcion(producto.descripcion());
         productoDto.setPrecio(producto.price());
         productoDto.setStock(producto.stock());
-
+        productoDto.setEstadoAprobacion(producto.estadoAprobacion());
         return productoRepository.save(productoDto);
     }
 
@@ -79,7 +85,8 @@ public class ProductoService {
                 producto.getDescripcion(),
                 producto.getEstadoAprobacion(),
                 producto.getNombre(),
-                producto.getStock()
+                producto.getStock(),
+                producto.getVendedor().getNombre()
         );
     }
 

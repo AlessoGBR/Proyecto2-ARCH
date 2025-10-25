@@ -48,8 +48,7 @@ export class Inicio implements OnInit {
   ngOnInit() {
     this.cargarCategorias();
     this.cargarProductosAprobados();
-
-    this.ajustarItemsPorPantalla();
+    this.ajustarItemsPorPantalla();    
   }
 
   private cargarCategorias(): void {

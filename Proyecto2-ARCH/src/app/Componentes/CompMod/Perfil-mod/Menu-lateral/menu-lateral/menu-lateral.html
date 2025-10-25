@@ -1,0 +1,11 @@
+<div class="menu-lateral">
+  <div class="align-items-center">
+    <h5>Hola</h5>
+    <p>{{ this.usuario?.nombre }} {{ this.usuario?.apellido }}</p>    
+    <p>{{this.usuario?.email}}</p>
+  </div>
+  <ul>
+    <li (click)="seleccionar('perfil')" [class.activo]="vista === 'perfil'">👤 Perfil</li>
+    <li (click)="logout()">🚪 Cerrar sesion</li>
+  </ul>
+</div>

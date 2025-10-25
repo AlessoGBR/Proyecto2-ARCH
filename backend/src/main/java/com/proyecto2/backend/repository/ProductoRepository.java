@@ -10,7 +10,10 @@ import java.util.List;
 
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+
     List<Producto> findByEstadoAprobacion(String estadoAprobacion);
+
+    List<Producto> findByEstadoAprobacionAndVendedor_IdUsuario(String estadoAprobacion, Integer vendedorIdUsuario);
 
     List<Producto> findByVendedor_IdUsuarioAndEstadoAprobacion(Integer idUsuario, String estadoAprobacion);
 

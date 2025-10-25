@@ -110,31 +110,5 @@ export class ViewProduct implements OnInit {
       next: (prom) => (this.promedio = prom),
     });
   }
-
-  agregarCalificacion(puntuacion: string, comentario: string): void {
-    const idUsuario = Number(localStorage.getItem('idUsuario'));
-    const idProducto = this.producto.id;
-    const idPedido = 1;
-
-    const nuevaCalificacion: Calificacion = {
-      idProducto,
-      idUsuario,
-      idPedido,
-      puntuacion,
-      comentario,
-    };
-
-    this.calificacionService.agregarCalificacion(nuevaCalificacion, this.producto.id, 
-      localStorage.getItem('idUsuario') || ''
-    ).subscribe({
-      next: () => {
-        Swal.fire('¡Gracias!', 'Tu calificación ha sido registrada.', 'success');
-        this.cargarCalificaciones(this.producto.id.toString());
-      },
-      error: (err) => {
-        console.error(err);
-        Swal.fire('Error', 'No se pudo guardar la calificación.', 'error');
-      },
-    });
-  }
+  
 }

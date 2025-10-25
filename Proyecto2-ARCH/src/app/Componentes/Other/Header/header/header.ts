@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../../../Services/auth';
 import Swal from 'sweetalert2';
-import { Producto } from '../../../../Objects/Producto/producto';
 import { ProductosService } from '../../../../Services/Productos/productos-service';
 import { Router } from '@angular/router';
 
@@ -16,15 +15,10 @@ import { Router } from '@angular/router';
 export class Header implements OnInit {
   busquedaNombre: string = '';
   usuarioActivo = !!localStorage.getItem('token');
-  productosFiltrados: Producto[] = [];
-  productosFiltradosAgrupados: Producto[][] = [];
   nombreUsuario: string = 'MI CUENTA';
+  tipoUsuario: string | null = localStorage.getItem('rol');
 
-  constructor(
-    private authService: Auth,
-    private productosService: ProductosService,
-    private router: Router
-  ) {}
+  constructor(private authService: Auth, private router: Router) {}
 
   ngOnInit() {
     this.verificarUsuario();
@@ -74,26 +68,46 @@ export class Header implements OnInit {
 
   irACuenta() {
     const token = localStorage.getItem('token');
-    const currentPath = window.location.pathname;
-    if (token) {
-      if (currentPath === '/inicio') {
-        window.location.href = '/Perfil';
-      } else if (currentPath === '/Perfil') {
-        window.location.href = '/inicio';
-      } else {
-        window.location.href = '/Perfil';
-      }
-    } else {
+    const rol = localStorage.getItem('rol');
+    if (!token) {
       window.location.href = '/login';
+      return;
+    }
+    switch (rol) {
+      case 'COMUN':
+        window.location.href = '/Perfil-comun';
+        break;
+
+      case 'MODERADOR':
+        this.router.navigate(['mod/perfil-mod']);
+        break;
+
+      case 'ADMINISTRADOR':
+        this.router.navigate(['admin']);
+        break;
+
+      case 'LOGISTICA':
+        this.router.navigate(['logistica/perfil-logistica']);
+        break;
+
+      default:
+        window.location.href = '/inicio';
+        break;
     }
   }
 
   irAInicio() {
-    window.location.href = '/inicio';
+    const tipoUsuario = localStorage.getItem('rol');
+    if (tipoUsuario === 'MODERADOR') {
+      this.router.navigate(['/mod']);
+    } else if (tipoUsuario === 'LOGISTICA') {
+      this.router.navigate(['/logistica']);
+    } else {
+      this.router.navigate(['/inicio']);
+    }
   }
 
   irACarrito() {
     window.location.href = '/carrito';
   }
-
 }

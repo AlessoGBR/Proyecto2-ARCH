@@ -32,6 +32,7 @@ export class EditProduct {
   }
 
   guardarCambios(): void {
+    this.producto.estadoAprobacion = 'pendiente';
     this.productosService.actualizarProducto(this.producto).subscribe({
       next: (data) => {
         console.log('Producto actualizado:', data);
@@ -40,7 +41,7 @@ export class EditProduct {
           title: 'Éxito',
           text: 'El producto ha sido actualizado correctamente.',
         });
-        this.router.navigate(['/perfil']);
+        this.router.navigate(['/Perfil']);
       },
       error: (err) =>
         Swal.fire({
@@ -52,6 +53,6 @@ export class EditProduct {
   }
 
   cancelar(): void {
-    console.log('Edición cancelada');
+    this.router.navigate(['/Perfil']);
   }
 }

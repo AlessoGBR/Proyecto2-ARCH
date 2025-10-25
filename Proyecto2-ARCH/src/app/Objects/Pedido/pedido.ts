@@ -8,6 +8,7 @@ export interface Pedido {
   direccionEntrega: string;
   detalles: DetallePedido[];
   fechaEntregaEstimada?: Date;
+  fechaEntrega?: Date;
   fechaPedido?: Date;
   estado?: string;
 }

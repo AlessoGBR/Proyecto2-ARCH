@@ -30,6 +30,11 @@
       </p>      
       <hr />
       <p class="fw-bold text-end">Total: Q{{ pedido.total }}</p>
+      <p class="text-end">
+        <a (click)="verPedido(pedido)" class="btn btn-outline-primary btn-sm"
+          >Ver Detalles</a
+        >
+      </p>
     </div>
   </div>
 </div>

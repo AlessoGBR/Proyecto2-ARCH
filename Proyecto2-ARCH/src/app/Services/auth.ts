@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { user } from '../Objects/User/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Auth {
-  private apiUrl = 'http://localhost:8080/api/auth'; 
+  private apiUrl = 'http://localhost:8080/api/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class Auth {
     return this.http.post(`${this.apiUrl}/login`, body);
   }
 
-  obtenerUsuario(idUsuario: string): Observable<user> {     
+  obtenerUsuario(idUsuario: string): Observable<user> {
     return this.http.get<user>(`${this.apiUrl}/${idUsuario}`);
   }
 
@@ -31,7 +31,7 @@ export class Auth {
     localStorage.removeItem('idUsuario');
   }
 
-  guardarSesion(token: string, rol: string, idUsuario:string): void {
+  guardarSesion(token: string, rol: string, idUsuario: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('rol', rol);
     localStorage.setItem('idUsuario', idUsuario);
@@ -39,13 +39,24 @@ export class Auth {
 
   obtenerRol(): string | null {
     return localStorage.getItem('rol');
-  } 
+  }
 
   estaAutenticado(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  actualizarUsuario(usuario: user, id : string): Observable<user> {
+  actualizarUsuario(usuario: user, id: string): Observable<user> {
     return this.http.put<user>(`${this.apiUrl}/actualizar/${id}`, usuario);
+  }
+  obtenerUsuariosSinSancion(): Observable<user[]> {
+    return this.http.get<user[]>(`${this.apiUrl}/sin-sancion`);
+  }
+
+  obtenerUsuariosSancionados(): Observable<user[]> {
+    return this.http.get<user[]>(`${this.apiUrl}/sancionados`);
+  }
+
+  crearEmpleado(usuario: any, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/crear-empleado?password=${password}`, usuario);
   }
 }

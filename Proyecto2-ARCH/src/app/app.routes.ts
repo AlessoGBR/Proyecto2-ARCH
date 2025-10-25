@@ -8,16 +8,46 @@ import { EditProduct } from './Componentes/CompComun/Perfil/Edit-product/edit-pr
 import { BuscarCategoria } from './Componentes/CompComun/Buscar-categoria/buscar-categoria/buscar-categoria';
 import { Cart } from './Componentes/CompComun/Cart/cart/cart';
 import { FinalizarCompra } from './Componentes/CompComun/Finalizar-compra/finalizar-compra/finalizar-compra';
+import { ProductosPendientes } from './Componentes/CompMod/Productos-Pendientes/productos-pendientes/productos-pendientes';
+import { Sanciones } from './Componentes/CompMod/Sanciones/sanciones/sanciones';
+import { InicioMod } from './Componentes/CompMod/Inicio-mod/inicio-mod/inicio-mod';
+import { RevisarProductos } from './Componentes/CompMod/Revisar-Productos/revisar-productos/revisar-productos';
+import { PerfilMod } from './Componentes/CompMod/Perfil-mod/perfil-mod/perfil-mod';
+import { QuitarSancion } from './Componentes/CompMod/Sanciones/Quitar-sancion/quitar-sancion/quitar-sancion';
+import { VerUsuarios } from './Componentes/CompMod/Sanciones/ver-Usuarios/ver-usuarios/ver-usuarios';
+import { InicioLogistica } from './Componentes/CompLogistica/Inicio/Inicio-logistica/inicio-logistica/inicio-logistica';
+import { OrdenesEnTransito } from './Componentes/CompLogistica/Ordenes-en-transito/ordenes-en-transito/ordenes-en-transito';
+import { OrdenesEntregadas } from './Componentes/CompLogistica/Ordenes-entregadas/ordenes-entregadas/ordenes-entregadas';
+import { PerfilLogistica } from './Componentes/CompLogistica/Inicio/Perfil-logistica/perfil-logistica/perfil-logistica';
+import { InicioAdministrador } from './Componentes/CompAdmin/Inicio/inicio-administrador/inicio-administrador';
+import { InicioUsuarios } from './Componentes/CompAdmin/Users/Inicio-usuarios/inicio-usuarios/inicio-usuarios';
+import { CrearUsuario } from './Componentes/CompAdmin/Users/Crear-usuario/crear-usuario/crear-usuario';
+import { VerUsuariosAdmin } from './Componentes/CompAdmin/Users/Ver-usuarios/ver-usuarios-admin/ver-usuarios-admin';
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'inicio', pathMatch: 'full' },
-    {path: 'login', component: InicioSesion },
-    {path: 'Perfil', component: Perfil },
-    {path: 'inicio', component: Inicio },
-    {path: 'view-product/:id', component: ViewProduct },
-    {path: 'busqueda', component: BuscarArticulos },
-    {path: 'edit-product/:id', component: EditProduct },
-    {path: 'buscar-categoria/:id', component: BuscarCategoria },
-    {path: 'carrito', component: Cart },
-    {path: 'finalizar-compra', component: FinalizarCompra },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'login', component: InicioSesion },
+  { path: 'Perfil-comun', component: Perfil },
+  { path: 'inicio', component: Inicio },
+  { path: 'view-product/:id', component: ViewProduct },
+  { path: 'busqueda', component: BuscarArticulos },
+  { path: 'edit-product/:id', component: EditProduct },
+  { path: 'buscar-categoria/:id', component: BuscarCategoria },
+  { path: 'carrito', component: Cart },
+  { path: 'finalizar-compra', component: FinalizarCompra },
+  { path: 'mod/productos-pendientes', component: ProductosPendientes },
+  { path: 'mod/verUsuarios', component: VerUsuarios },
+  { path: 'mod/sanciones/:id', component: Sanciones },
+  { path: 'mod/quitar-sancion/:id', component: QuitarSancion },
+  { path: 'mod/revisar-productos/:id', component: RevisarProductos },
+  { path: 'mod/perfil-mod', component: PerfilMod },
+  { path: 'mod', component: InicioMod },
+  { path: 'logistica', component: InicioLogistica },
+  { path: 'logistica/ordenes', component: OrdenesEnTransito },
+  { path: 'logistica/entregados', component: OrdenesEntregadas },
+  { path: 'logistica/perfil-logistica', component: PerfilLogistica },
+  { path: 'admin', component: InicioAdministrador },
+  { path: 'admin/usuarios', component: InicioUsuarios },
+  { path: 'admin/crear-usuario', component: CrearUsuario },
+  { path: 'admin/ver-usuarios-admin', component: VerUsuariosAdmin },
 ];

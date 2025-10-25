@@ -1,0 +1,25 @@
+<div class="container text-center mt-5">
+  <h2 class="mb-4">Panel del Moderador</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card shadow opcion-card" (click)="crear()">
+        <div class="card-body">
+          <i class="bi bi-eye-fill fs-1 text-primary"></i>
+          <h5 class="mt-3">Crear usuario</h5>
+          <p class="text-muted">Crea un nuevo usuario para la pagina moderador/logistica</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow opcion-card" (click)="usuarios()">
+        <div class="card-body">
+          <i class="bi bi-person-dash-fill fs-1 text-danger"></i>
+          <h5 class="mt-3">Editar usuaro</h5>
+          <p class="text-muted">Edita las credenciales de un usuario activo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

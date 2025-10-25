@@ -31,6 +31,10 @@ export class ProductosService {
     return this.http.get<Producto[]>(`${this.apiUrl}/denegados`);
   }
 
+  obtenerProductosDenegadosId(id: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/denegados/${id}`);
+  }
+
   buscarProductos(nombre: string): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}/buscar?nombre=${nombre}`);
   }
@@ -45,5 +49,9 @@ export class ProductosService {
 
   actualizarProducto(producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}/actualizar/${producto.id}`, producto);
+  }
+
+  actualizarEstado(producto: Producto, estado: string): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/actualizar/${producto.id}/${estado}`, producto);
   }
 }

@@ -1,0 +1,32 @@
+<div class="container mt-5" *ngIf="producto">
+  <div class="card p-4 shadow">
+    <div class="row">
+      <div class="col-md-5">
+        <img [src]="producto.imageUrl" class="img-fluid rounded" alt="{{ producto.nombre }}" />
+      </div>
+      <div class="col-md-7">
+        
+        <p><strong>Vendedor:</strong> {{ producto.username }}</p>
+        <h3>{{ producto.nombre }}</h3>
+        <p><strong>Descripcion: </strong>{{ producto.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoryName }}</p>
+        <p><strong>Precio:</strong> Q{{ producto.price }}</p>
+        <p><strong>Stock:</strong> {{ producto.stock }}</p>
+
+        <div class="mt-4">
+          <label for="decision"><strong>Acción del Moderador:</strong></label>
+          <select id="decision" [(ngModel)]="decision" class="form-select mt-2">
+            <option value="">Seleccionar acción</option>
+            <option value="aprobado">Aprobar producto</option>
+            <option value="rechazado">Rechazar producto</option>
+          </select>
+        </div>
+
+        <div class="mt-3 text-end">
+          <button class="btn btn-success me-2" (click)="guardarDecision()">Guardar</button>
+          <button class="btn btn-secondary" (click)="regresar()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

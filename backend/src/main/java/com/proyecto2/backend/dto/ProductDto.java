@@ -9,6 +9,7 @@ public record ProductDto(
         String descripcion,
         String estadoAprobacion,
         String nombre,
-        Integer stock
+        Integer stock,
+        String username
 ) {
 }

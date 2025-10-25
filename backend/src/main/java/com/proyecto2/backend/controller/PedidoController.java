@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,5 +32,28 @@ public class PedidoController {
     public ResponseEntity<List<PedidoResponseDto>> obtenerPedidosPorUsuario(@PathVariable Integer idUsuario) {
         List<PedidoResponseDto> pedidos = pedidoService.obtenerPedidosPorUsuario(idUsuario);
         return ResponseEntity.ok(pedidos);
+    }
+
+    @GetMapping("/en-curso")
+    public ResponseEntity<List<PedidoResponseDto>> obtenerPedidosEnCurso() {
+        return ResponseEntity.ok(pedidoService.obtenerPedidosEnCurso());
+    }
+    @GetMapping("/entregados")
+    public ResponseEntity<List<PedidoResponseDto>> obtenerPedidosEntregados() {
+        return ResponseEntity.ok(pedidoService.obtenerPedidosEntregados());
+    }
+
+    @PutMapping("/entregado/{id}")
+    public ResponseEntity<PedidoResponseDto> marcarComoEntregado(@PathVariable Integer id) {
+        return ResponseEntity.ok(pedidoService.marcarComoEntregado(id));
+    }
+
+    @PutMapping("/actualizar-fecha/{id}")
+    public ResponseEntity<PedidoResponseDto> actualizarFechaEntrega(
+            @PathVariable Integer id,
+            @RequestParam String fechaFin
+    ) {
+        LocalDate fecha = LocalDate.parse(fechaFin);
+        return ResponseEntity.ok(pedidoService.actualizarFechaEntrega(id, fecha));
     }
 }

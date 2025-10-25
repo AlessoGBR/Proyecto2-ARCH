@@ -31,4 +31,8 @@ export class Pedidos implements OnInit {
       });
     }
   }
+
+  verPedido(pedido : Pedido): void {
+    // Lógica para ver los detalles del pedido
+  }
 }

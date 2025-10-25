@@ -1,0 +1,25 @@
+.card {
+  border-radius: 15px;
+  border: none;
+}
+
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+button.btn-success {
+  background-color: #28a745;
+  border: none;
+  font-weight: bold;
+}
+
+button.btn-success:hover {
+  background-color: #218838;
+}

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,6 +33,7 @@ public class AuthController {
         respuesta.put("token", token);
         respuesta.put("rol", user.getRol().getNombre());
         respuesta.put("idUsuario", user.getIdUsuario());
+        respuesta.put("activo", user.getCuentaActiva());
         return ResponseEntity.ok(respuesta);
     }
 
@@ -45,6 +47,17 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
 
+    @PostMapping("/crear-empleado")
+    public ResponseEntity<UsuarioDto> crearEmpleado(@RequestBody UsuarioDto usuarioDto,
+                                                    @RequestParam ("password")String password) {
+        try {
+            Usuario nuevoUsuario = authService.crearEmpleado(usuarioDto, password);
+            return ResponseEntity.ok(authService.mapToUsuarioDto(nuevoUsuario));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDto user) {
         try {
@@ -53,5 +66,15 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/sin-sancion")
+    public ResponseEntity<List<UsuarioDto>> obtenerUsuariosSinSancion() {
+        return ResponseEntity.ok(authService.obtenerUsuariosSinSancion());
+    }
+
+    @GetMapping("/sancionados")
+    public ResponseEntity<List<UsuarioDto>> obtenerUsuariosSancionados() {
+        return ResponseEntity.ok(authService.obtenerUsuariosSancionados());
     }
 }

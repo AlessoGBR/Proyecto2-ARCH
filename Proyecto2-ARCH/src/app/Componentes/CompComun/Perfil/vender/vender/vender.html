@@ -1,96 +1,102 @@
-
-<form class="vender-form" (ngSubmit)="submitProduct()" #productForm="ngForm">
+<div class="container mt-4">
+  <form
+    class="vender-form"
+    (ngSubmit)="submitProduct()"
+    #productForm="ngForm"
+    *ngIf="usuario?.activo"
+  >
     <h2>Agregar producto</h2>
     <label class="field">
-        <span>Foto del producto</span>
-        <input type="file" accept="image/*" (change)="onFileChange($event)" required />
+      <span>Foto del producto</span>
+      <input type="file" accept="image/*" (change)="onFileChange($event)" required />
     </label>
     <div class="preview" *ngIf="imagePreview">
-        <img [src]="imagePreview" alt="Vista previa del producto" />
+      <img [src]="imagePreview" alt="Vista previa del producto" />
     </div>
     <label class="field">
-        <span>Nombre</span>
-        <input
-            name="name"
-            type="text"
-            required
-            [(ngModel)]="product.name"
-            placeholder="Nombre del producto"
-        />
+      <span>Nombre</span>
+      <input
+        name="name"
+        type="text"
+        required
+        [(ngModel)]="product.name"
+        placeholder="Nombre del producto"
+      />
     </label>
     <label class="field">
-        <span>Descripción</span>
-        <textarea
-            name="description"
-            rows="4"
-            [(ngModel)]="product.description"
-            placeholder="Descripción del producto"
-        ></textarea>
+      <span>Descripción</span>
+      <textarea
+        name="description"
+        rows="4"
+        [(ngModel)]="product.description"
+        placeholder="Descripción del producto"
+      ></textarea>
     </label>
     <div class="row">
-        <label class="field small">
-            <span>Precio</span>
-            <input
-                name="price"
-                type="number"
-                min="0"
-                step="0.01"
-                required
-                [(ngModel)]="product.price"
-                placeholder="0.00"
-            />
-        </label>
-        <label class="field small">
-            <span>Stock</span>
-            <input
-                name="stock"
-                type="number"
-                min="0"
-                required
-                [(ngModel)]="product.stock"
-                placeholder="0"
-            />
-        </label>
+      <label class="field small">
+        <span>Precio</span>
+        <input
+          name="price"
+          type="number"
+          min="0"
+          step="0.01"
+          required
+          [(ngModel)]="product.price"
+          placeholder="0.00"
+        />
+      </label>
+      <label class="field small">
+        <span>Stock</span>
+        <input
+          name="stock"
+          type="number"
+          min="0"
+          required
+          [(ngModel)]="product.stock"
+          placeholder="0"
+        />
+      </label>
     </div>
 
     <div class="field">
-        <span>Categoría</span>
-        <div class="categories">
-            <button
-                type="button"
-                *ngFor="let c of categorias"
-                (click)="selectCategory(c)"
-                [class.selected]="selectedCategory === c.nombreCategoria"
-            >
-                {{ c.nombreCategoria }}
-            </button>
-        </div>
-        <input type="hidden" name="category" [(ngModel)]="selectedCategory" />
-    </div> 
+      <span>Categoría</span>
+      <div class="categories">
+        <button
+          type="button"
+          *ngFor="let c of categorias"
+          (click)="selectCategory(c)"
+          [class.selected]="selectedCategory === c.nombreCategoria"
+        >
+          {{ c.nombreCategoria }}
+        </button>
+      </div>
+      <input type="hidden" name="category" [(ngModel)]="selectedCategory" />
+    </div>
     <div class="field">
-        <span>Estado</span>
-        <label class="radio">
-            <input
-                type="radio"
-                name="condition"
-                value="nuevo"
-                [(ngModel)]="product.condition"
-                required
-            />
-            Nuevo
-        </label>
-        <label class="radio">
-            <input
-                type="radio"
-                name="condition"
-                value="usado"
-                [(ngModel)]="product.condition"
-            />
-            Usado
-        </label>
+      <span>Estado</span>
+      <label class="radio">
+        <input
+          type="radio"
+          name="condition"
+          value="nuevo"
+          [(ngModel)]="product.condition"
+          required
+        />
+        Nuevo
+      </label>
+      <label class="radio">
+        <input type="radio" name="condition" value="usado" [(ngModel)]="product.condition" />
+        Usado
+      </label>
     </div>
     <div class="actions">
-        <button type="submit" [disabled]="productForm.invalid">Guardar producto</button>
+      <button type="submit" [disabled]="productForm.invalid">Guardar producto</button>
     </div>
-</form>
-
+  </form>
+  <div class="alert alert-danger text-center p-4" *ngIf="!usuario?.activo">
+    <i class="bi bi-exclamation-triangle-fill fs-1 mb-3 d-block"></i>
+    <h3 class="mb-3">Cuenta Suspendida</h3>
+    <p class="mb-2">Lo sentimos, tu cuenta se encuentra temporalmente suspendida.</p>
+    <p>No puedes publicar nuevos productos hasta que se levante la sanción.</p>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-success:hover,
+.btn-outline-danger:hover {
+  transform: scale(1.05);
+}
+
+h2 {
+  letter-spacing: 1px;
+}
+
+.bi {
+  margin-right: 5px;
+}

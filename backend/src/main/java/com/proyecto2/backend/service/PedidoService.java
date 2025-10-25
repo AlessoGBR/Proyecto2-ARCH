@@ -65,10 +65,42 @@ public class PedidoService {
         return pedidos.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
+    public List<PedidoResponseDto> obtenerPedidosEnCurso() {
+        List<Pedido> pedidos = pedidoRepository.obtenerPedidosEnCurso();
+        return pedidos.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<PedidoResponseDto> obtenerPedidosEntregados() {
+        List<Pedido> pedidos = pedidoRepository.obtenerPedidosEntregados();
+        return pedidos.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public PedidoResponseDto marcarComoEntregado(Integer idPedido) {
+        PedidoResponseDto pedidoResponseDto = new PedidoResponseDto();
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+
+        pedido.setEstado("entregado");
+        pedido.setFechaEntregaReal(Date.valueOf(LocalDate.now()));
+        pedidoRepository.save(pedido);
+        return pedidoResponseDto;
+    }
+
+    public PedidoResponseDto actualizarFechaEntrega(Integer idPedido, LocalDate nuevaFecha) {
+        PedidoResponseDto pedidoResponseDto = marcarComoEntregado(idPedido);
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+
+        pedido.setFechaEntregaEstimada(Date.valueOf(nuevaFecha));
+
+        return pedidoResponseDto;
+    }
+
     public PedidoResponseDto mapToDto(Pedido pedido) {
         List<DetallePedidoDto> detallesDto = pedido.getDetalles().stream()
                 .map(det -> DetallePedidoDto.builder()
                         .idDetalle(det.getIdDetalle())
+                        .idPedido(det.getPedido().getIdPedido())
                         .nombreProducto(det.getProducto().getNombre())
                         .imagenUrl(det.getProducto().getImagenUrl())
                         .cantidad(det.getCantidad())
@@ -84,6 +116,7 @@ public class PedidoService {
                 .direccionEntrega(pedido.getDireccionEntrega())
                 .fechaPedido(pedido.getFechaPedido() != null ? pedido.getFechaPedido() : null)
                 .fechaEntregaEstimada(pedido.getFechaEntregaEstimada())
+                .fechaEntrega(pedido.getFechaEntregaReal())
                 .detalles(detallesDto)
                 .build();
     }

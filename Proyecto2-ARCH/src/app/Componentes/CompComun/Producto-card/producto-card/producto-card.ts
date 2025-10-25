@@ -9,15 +9,15 @@ import Swal from 'sweetalert2';
   imports: [CommonModule],
   standalone: true,
   templateUrl: './producto-card.html',
-  styleUrl: './producto-card.css'
+  styleUrl: './producto-card.css',
 })
 export class ProductoCard {
-
-@Input() producto!: Producto;
+  @Input() producto!: Producto;
 
   constructor(private router: Router) {}
 
   comprar() {
+    const rol = localStorage.getItem('rol');
     const token = localStorage.getItem('token');
     if (!token) {
       Swal.fire({
@@ -26,6 +26,13 @@ export class ProductoCard {
         showConfirmButton: true,
       });
       this.router.navigate(['/login']);
+    } else if (rol != 'COMUN') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'NO PUEDES COMPRAR SIENDO DE OTRO ROL',
+        showConfirmButton: true,
+      });
+      return;
     } else {
       this.router.navigate(['/view-product', this.producto.id]);
     }

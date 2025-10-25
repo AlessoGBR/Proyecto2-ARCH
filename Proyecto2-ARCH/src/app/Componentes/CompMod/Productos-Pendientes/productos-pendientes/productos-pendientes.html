@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <h3>Productos Pendientes de Revisión</h3>
+  <button class="btn btn-secondary" (click)="regresar()">Regresar</button>
+  <div class="row mt-4">
+    <div class="col-md-4 mb-4" *ngFor="let producto of productosPendientes">
+      <div class="card producto-card shadow" (click)="verDetalle(producto)">
+        <img [src]="producto.imageUrl" class="card-img-top" alt="{{ producto.nombre }}" />
+        <div class="card-body">
+          <h5 class="card-title">{{ producto.nombre }}</h5>
+          <p class="card-text">{{ producto.descripcion }}</p>
+          <p><strong>Precio:</strong> Q{{ producto.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
