@@ -23,10 +23,20 @@ import { InicioAdministrador } from './Componentes/CompAdmin/Inicio/inicio-admin
 import { InicioUsuarios } from './Componentes/CompAdmin/Users/Inicio-usuarios/inicio-usuarios/inicio-usuarios';
 import { CrearUsuario } from './Componentes/CompAdmin/Users/Crear-usuario/crear-usuario/crear-usuario';
 import { VerUsuariosAdmin } from './Componentes/CompAdmin/Users/Ver-usuarios/ver-usuarios-admin/ver-usuarios-admin';
+import { RegistarUsuario } from './Componentes/CompComun/Registrar-usuario/registar-usuario/registar-usuario';
+import { InicioReportes } from './Componentes/CompAdmin/Reports/Inicio/inicio-reportes/inicio-reportes';
+import { HistorialSanciones } from './Componentes/CompAdmin/Reports/Historial-sanciones/historial-sanciones/historial-sanciones';
+import { HistorialNotificaciones } from './Componentes/CompAdmin/Reports/Historial-notificaciones/historial-notificaciones/historial-notificaciones';
+import { TopClientesGanancia } from './Componentes/CompAdmin/Reports/Top-clientes-ganancia/top-clientes-ganancia/top-clientes-ganancia';
+import { TopClientesPedidos } from './Componentes/CompAdmin/Reports/Top-clientes-pedidos/top-clientes-pedidos/top-clientes-pedidos';
+import { TopClientesProductos } from './Componentes/CompAdmin/Reports/Top-clientes-productos/top-clientes-productos/top-clientes-productos';
+import { TopClientesVendedores } from './Componentes/CompAdmin/Reports/Top-clientes-vendedores/top-clientes-vendedores/top-clientes-vendedores';
+import { TopProductos } from './Componentes/CompAdmin/Reports/Top-productos/top-productos/top-productos';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'login', component: InicioSesion },
+  { path: 'registro', component: RegistarUsuario },
   { path: 'Perfil-comun', component: Perfil },
   { path: 'inicio', component: Inicio },
   { path: 'view-product/:id', component: ViewProduct },
@@ -50,4 +60,12 @@ export const routes: Routes = [
   { path: 'admin/usuarios', component: InicioUsuarios },
   { path: 'admin/crear-usuario', component: CrearUsuario },
   { path: 'admin/ver-usuarios-admin', component: VerUsuariosAdmin },
+  { path: 'admin/reportes', component: InicioReportes },
+  { path: 'admin/reportes/historial-sanciones', component: HistorialSanciones },
+  { path: 'admin/reportes/historial-notificaciones', component: HistorialNotificaciones },
+  { path: 'admin/reportes/top-clientes-ganancias', component: TopClientesGanancia },
+  { path: 'admin/reportes/top-clientes-pedidos', component: TopClientesPedidos },
+  { path: 'admin/reportes/top-clientes-productos', component: TopClientesProductos },
+  { path: 'admin/reportes/top-clientes-vendedores', component: TopClientesVendedores },
+  { path: 'admin/reportes/top-productos', component: TopProductos },
 ];

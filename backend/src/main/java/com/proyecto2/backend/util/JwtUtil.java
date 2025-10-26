@@ -52,4 +52,15 @@ public class JwtUtil {
 
         return claims.get("idUsuario", Integer.class);
     }
+
+    public String obtenerRolDesdeToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("rol", String.class);
+    }
+
 }

@@ -61,4 +61,8 @@ export class InicioSesion {
   regresar() {
     this.router.navigate(['/inicio']);
   }
+
+  crearUsuario() {
+    this.router.navigate(['/registro']);
+  }
 }

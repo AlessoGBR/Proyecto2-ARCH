@@ -26,5 +26,7 @@
 
     <button type="submit" [disabled]="!loginForm.valid">Ingresar</button>
   </form>
+  <p>Si no tienes usuario puedes registrarte:</p>
+  <button type="submit" (click)="crearUsuario()">Crear usuario</button>
 </div>
 
