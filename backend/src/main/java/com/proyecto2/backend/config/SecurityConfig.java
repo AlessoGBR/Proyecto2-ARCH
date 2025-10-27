@@ -68,7 +68,8 @@ public class SecurityConfig {
 
         cfg.setAllowedOrigins(List.of(
                 "http://localhost:4200",
-                "https://proyecto2-arch.netlify.app"
+                "https://proyecto2-arch.netlify.app",
+                "https://luana-counsellable-strictly.ngrok-free.dev"
         ));
 
         cfg.setAllowedOriginPatterns(List.of(
@@ -79,13 +80,25 @@ public class SecurityConfig {
         ));
 
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        cfg.setAllowedHeaders(List.of("*"));
-        cfg.setExposedHeaders(List.of("Authorization"));
+
+        cfg.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "X-Requested-With",
+                "Accept",
+                "Origin"
+        ));
+
+        cfg.setExposedHeaders(List.of("Authorization", "Content-Type"));
+
         cfg.setAllowCredentials(true);
-        cfg.setMaxAge(Duration.ofHours(1));
+
+        cfg.setMaxAge(Duration.ofHours(2));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cfg);
+
         return source;
     }
+
 }
