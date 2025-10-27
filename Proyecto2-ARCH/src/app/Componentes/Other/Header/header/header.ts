@@ -101,6 +101,8 @@ export class Header implements OnInit {
       this.router.navigate(['/mod']);
     } else if (tipoUsuario === 'LOGISTICA') {
       this.router.navigate(['/logistica']);
+    } else if (tipoUsuario === 'ADMINISTRADOR') {
+      this.router.navigate(['/admin']);
     } else {
       this.router.navigate(['/inicio']);
     }

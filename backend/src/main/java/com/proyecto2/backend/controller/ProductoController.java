@@ -98,6 +98,18 @@ public class ProductoController {
 
     }
 
+    @PutMapping("/estado/{id}")
+    public ResponseEntity<ProductDto> estado(@RequestBody ProductDto producto) {
+
+        try {
+            productoService.estado(producto);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     @PostMapping(value = "/crear", consumes = {"multipart/form-data"})
     public ResponseEntity<Producto> crearProducto(
             @RequestParam("nombre") String nombre,

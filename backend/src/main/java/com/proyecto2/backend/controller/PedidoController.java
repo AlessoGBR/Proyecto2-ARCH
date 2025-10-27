@@ -3,6 +3,7 @@ package com.proyecto2.backend.controller;
 import com.proyecto2.backend.entity.DetallePedido;
 import com.proyecto2.backend.entity.Pedido;
 import com.proyecto2.backend.entity.PedidoResponseDto;
+import com.proyecto2.backend.service.NotificacionService;
 import com.proyecto2.backend.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

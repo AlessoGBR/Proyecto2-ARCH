@@ -1,0 +1,29 @@
+.card {
+  border-radius: 16px;
+}
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th {
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f1f8f4;
+}
+
+.container {
+  max-width: 800px;
+}
+
+h3 {
+  color: #053d23;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+

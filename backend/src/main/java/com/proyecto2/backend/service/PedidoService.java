@@ -21,6 +21,7 @@ public class PedidoService {
     private final UsuarioRepository usuarioRepository;
     private final TarjetaRepository tarjetaRepository;
     private final ProductoRepository productoRepository;
+    private final NotificacionService notificacionService;
 
 
     public Pedido crearPedido(Long idUsuario, Integer idTarjeta, String direccion, List<DetallePedido> detalles) {
@@ -83,6 +84,7 @@ public class PedidoService {
         pedido.setEstado("entregado");
         pedido.setFechaEntregaReal(Date.valueOf(LocalDate.now()));
         pedidoRepository.save(pedido);
+        notificacionService.notificarPedidoEntregado(pedido);
         return pedidoResponseDto;
     }
 

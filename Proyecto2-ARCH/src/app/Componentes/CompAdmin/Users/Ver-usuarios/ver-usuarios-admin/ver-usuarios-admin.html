@@ -1,1 +1,31 @@
-<p>ver-usuarios-admin works!</p>
+<div class="container mt-4">
+  <h3 class="text-success fw-bold mb-4">Gestión de Usuarios</h3>
+
+  <table class="table table-hover shadow">
+    <thead class="table-success">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Cuenta activa</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuarios">
+        <td>{{ u.id }}</td>
+        <td>{{ u.nombre }} {{ u.apellido }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          <span class="badge bg-success" *ngIf="u.activo">Activa</span>
+          <span class="badge bg-danger" *ngIf="!u.activo">Suspendida</span>
+        </td>
+        <td>
+          <button class="btn btn-outline-success btn-sm" (click)="editar(u.id!)">
+            Editar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

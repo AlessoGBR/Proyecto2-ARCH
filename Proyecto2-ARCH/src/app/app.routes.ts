@@ -32,6 +32,7 @@ import { TopClientesPedidos } from './Componentes/CompAdmin/Reports/Top-clientes
 import { TopClientesProductos } from './Componentes/CompAdmin/Reports/Top-clientes-productos/top-clientes-productos/top-clientes-productos';
 import { TopClientesVendedores } from './Componentes/CompAdmin/Reports/Top-clientes-vendedores/top-clientes-vendedores/top-clientes-vendedores';
 import { TopProductos } from './Componentes/CompAdmin/Reports/Top-productos/top-productos/top-productos';
+import { EditarUsuario } from './Componentes/CompAdmin/Users/Editar-usuario/editar-usuario/editar-usuario';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -68,4 +69,5 @@ export const routes: Routes = [
   { path: 'admin/reportes/top-clientes-productos', component: TopClientesProductos },
   { path: 'admin/reportes/top-clientes-vendedores', component: TopClientesVendedores },
   { path: 'admin/reportes/top-productos', component: TopProductos },
+  { path: 'admin/editar-usuario/:id', component: EditarUsuario}
 ];

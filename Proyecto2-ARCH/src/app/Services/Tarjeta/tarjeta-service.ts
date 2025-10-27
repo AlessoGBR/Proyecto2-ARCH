@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tarjeta } from '../../Objects/Tarjeta/tarjeta';
+import { environment } from '../Environment/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TarjetaService {
-  private apiUrl = 'http://localhost:8080/api/tarjetas';
+  private apiUrl = `${environment.apiUrl}/tarjetas`;
 
   constructor(private http: HttpClient) {}
 

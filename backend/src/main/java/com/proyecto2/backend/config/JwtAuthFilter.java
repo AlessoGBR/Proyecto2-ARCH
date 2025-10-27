@@ -34,7 +34,15 @@ public class JwtAuthFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
+
+        final String path = request.getRequestURI();
+
+        if (path.startsWith("/api/auth/") || path.startsWith("/api/reportes/") || path.startsWith("/swagger") || path.startsWith("/v3/api-docs")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization");
 
@@ -50,7 +58,7 @@ public class JwtAuthFilter extends OncePerRequestFilter{
             return;
         }
 
-        Long idUsuario = Long.valueOf(jwtUtil.obtenerIdUsuarioDesdeToken(token));
+        long idUsuario = jwtUtil.obtenerIdUsuarioDesdeToken(token);
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(idUsuario);
 
         if (usuarioOpt.isEmpty()) {
@@ -60,15 +68,16 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 
         Usuario usuario = usuarioOpt.get();
 
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre().toUpperCase());
+        SimpleGrantedAuthority authority =
+                new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre().toUpperCase());
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                usuario, null, Collections.singletonList(authority)
-        );
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(usuario, null, Collections.singletonList(authority));
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
     }
+
 }

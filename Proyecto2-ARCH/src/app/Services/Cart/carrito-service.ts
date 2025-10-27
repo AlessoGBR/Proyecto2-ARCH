@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CarritoItem } from '../../Objects/Cart/carrito-item';
 import { Carrito } from '../../Objects/Cart/carrito';
+import { environment } from '../Environment/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8080/api/carrito';
+  private apiUrl = `${environment.apiUrl}/carrito`;
 
   constructor(private http: HttpClient) {}
 

@@ -1,6 +1,7 @@
 package com.proyecto2.backend.repository;
 
 import com.proyecto2.backend.entity.Producto;
+import com.proyecto2.backend.entity.TopClientesProductosDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,5 +25,18 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     List<Producto> buscarPorCategoria(@Param("idCategoria") String idCategoria);
 
     Producto findByIdProducto(Integer idProducto);
+
+    @Query("""
+                SELECT new com.proyecto2.backend.entity.TopClientesProductosDto(
+                    p.vendedor.idUsuario,
+                    CONCAT(p.vendedor.nombre, ' ', p.vendedor.apellido),
+                    COUNT(p.idProducto)
+                )
+                FROM Producto p
+                WHERE p.estadoAprobacion = 'aprobado'
+                GROUP BY p.vendedor.idUsuario, p.vendedor.nombre, p.vendedor.apellido
+                ORDER BY COUNT(p.idProducto) DESC
+            """)
+    List<TopClientesProductosDto> obtenerTop10ClientesProductos();
 
 }

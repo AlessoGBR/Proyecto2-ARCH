@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../../Objects/Producto/producto';
+import { environment } from '../Environment/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductosService {
-  private apiUrl = 'http://localhost:8080/api/productos';
+  private apiUrl = `${environment.apiUrl}/productos`;
 
   constructor(private http: HttpClient) {}
 
@@ -49,6 +50,10 @@ export class ProductosService {
 
   actualizarProducto(producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(`${this.apiUrl}/actualizar/${producto.id}`, producto);
+  }
+
+  cambiarEstadoProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/estado/${producto.id}`, producto);
   }
 
   actualizarEstado(producto: Producto, estado: string): Observable<Producto> {

@@ -40,7 +40,7 @@ export class RevisarProductos implements OnInit {
     }
     this.producto!.estadoAprobacion = this.decision;
     console.log(this.producto);
-    this.productoService.actualizarProducto(this.producto!).subscribe({
+    this.productoService.cambiarEstadoProducto(this.producto!).subscribe({
       next: () => {
         Swal.fire({
           icon: 'success',

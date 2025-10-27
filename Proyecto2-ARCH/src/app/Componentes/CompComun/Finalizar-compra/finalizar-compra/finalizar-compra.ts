@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { tarjeta } from '../../../../Objects/Tarjeta/tarjeta';
 import { Carrito } from '../../../../Objects/Cart/carrito';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finalizar-compra',
@@ -28,7 +29,8 @@ export class FinalizarCompra implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private tarjetaService: TarjetaService,
-    private carritoService: CarritoService
+    private carritoService: CarritoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -187,13 +189,14 @@ export class FinalizarCompra implements OnInit {
     }).then(() => {
       this.carritoService.vaciarCarrito(id).subscribe({
         next: () => {
-          window.location.href = '/Perfil';
+          this.router.navigate(['/Perfil-comun'])
         },
         error: (err) => {
-          window.location.href = '/Perfil ';
+          this.router.navigate(['/Perfil-comun'])
         },
       });
-    });
+    })
+    
   }
 
   private mostrarError(mensaje: string): void {

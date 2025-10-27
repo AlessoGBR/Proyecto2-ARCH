@@ -1,1 +1,44 @@
-<p>editar-usuario works!</p>
+<div class="container mt-4" *ngIf="usuario">
+  <h3 class="text-success fw-bold mb-3">Editar Usuario</h3>
+
+  <form (ngSubmit)="guardarCambios()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label>Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required />
+      </div>
+
+      <div class="col-md-6">
+        <label>Apellido</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" required />
+      </div>
+
+      <div class="col-md-6">
+        <label>Email</label>
+        <input type="email" class="form-control" [(ngModel)]="usuario.email" name="email" required />
+      </div>
+
+      <div class="col-md-6">
+        <label>Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telefono" />
+      </div>
+
+      <div class="col-md-6">
+        <label>Dirección</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.direccion" name="direccion" />
+      </div>
+      
+      <div class="col-md-6">
+        <label>Cuenta activa</label>
+        <select class="form-select" [(ngModel)]="usuario.cuentaActiva" name="cuentaActiva">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-success px-4">Guardar Cambios</button>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,5 @@
 package com.proyecto2.backend.service;
+
 import com.proyecto2.backend.dto.ProductDto;
 import com.proyecto2.backend.entity.Producto;
 import com.proyecto2.backend.entity.SolicitudProducto;
@@ -19,20 +20,21 @@ public class ProductoService {
 
     private final ProductoRepository productoRepository;
     private final SolicitudRepository solicitudRepository;
+    private final NotificacionService notificacionService;
 
     public List<ProductDto> findByEstadoAprobacion(String estadoAprobacion) {
-       List<Producto> productoDtos =  productoRepository.findByEstadoAprobacion(estadoAprobacion);
-       return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
-
-    }
-
-    public List<ProductDto> findByEstadoAprobacionId(String estadoAprobacion, Integer id) {
-        List<Producto> productoDtos =  productoRepository.findByEstadoAprobacionAndVendedor_IdUsuario(estadoAprobacion,id);
+        List<Producto> productoDtos = productoRepository.findByEstadoAprobacion(estadoAprobacion);
         return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
 
     }
 
-    public  List<ProductDto> findByVendedor_IdUsuario(Integer idUsuario) {
+    public List<ProductDto> findByEstadoAprobacionId(String estadoAprobacion, Integer id) {
+        List<Producto> productoDtos = productoRepository.findByEstadoAprobacionAndVendedor_IdUsuario(estadoAprobacion, id);
+        return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
+
+    }
+
+    public List<ProductDto> findByVendedor_IdUsuario(Integer idUsuario) {
         List<Producto> productoDtos = productoRepository.findByVendedor_IdUsuarioAndEstadoAprobacion(idUsuario, "aprobado");
         return productoDtos.stream().map(this::mapToProductoDto).collect(Collectors.toList());
     }
@@ -54,6 +56,21 @@ public class ProductoService {
         productoDto.setPrecio(producto.price());
         productoDto.setStock(producto.stock());
         productoDto.setEstadoAprobacion(producto.estadoAprobacion());
+        return productoRepository.save(productoDto);
+    }
+
+    public Producto estado(ProductDto producto) {
+        Producto productoDto = productoRepository.findByIdProducto(producto.id());
+        productoDto.setNombre(producto.nombre());
+        productoDto.setDescripcion(producto.descripcion());
+        productoDto.setPrecio(producto.price());
+        productoDto.setStock(producto.stock());
+        productoDto.setEstadoAprobacion(producto.estadoAprobacion());
+        if (producto.estadoAprobacion().equals("aprobado")) {
+            notificacionService.notificarProductoAprobado(productoDto);
+        } else {
+            notificacionService.notificarProductoRechazado(productoDto);
+        }
         return productoRepository.save(productoDto);
     }
 
@@ -97,7 +114,6 @@ public class ProductoService {
         solicitudProducto.setFechaSolicitud(Date.valueOf(LocalDate.now()));
         solicitudRepository.save(solicitudProducto);
     }
-
 
 
 }

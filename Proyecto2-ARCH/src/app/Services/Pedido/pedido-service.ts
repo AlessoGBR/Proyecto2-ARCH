@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pedido } from '../../Objects/Pedido/pedido';
 import { DetallePedido } from '../../Objects/Pedido/detalle-pedido';
+import { environment } from '../Environment/enviroment';
 
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
-  private apiUrl = 'http://localhost:8080/api/pedidos';
+  
+  private apiUrl = `${environment.apiUrl}/pedidos`;
 
   constructor(private http: HttpClient) {}
 

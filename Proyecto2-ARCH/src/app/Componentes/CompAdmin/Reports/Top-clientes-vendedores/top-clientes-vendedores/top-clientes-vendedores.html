@@ -1,1 +1,40 @@
-<p>top-clientes-vendedores works!</p>
+<div class="container mt-5">
+  <h3 class="text-center text-success fw-bold mb-4">Top 5 Clientes que Más Productos Han Vendido</h3>
+
+  <div class="d-flex justify-content-center mb-4">
+    <div class="me-3">
+      <label class="form-label fw-semibold">Fecha inicio:</label>
+      <input type="date" class="form-control" [(ngModel)]="fechaInicio" />
+    </div>
+    <div class="me-3">
+      <label class="form-label fw-semibold">Fecha fin:</label>
+      <input type="date" class="form-control" [(ngModel)]="fechaFin" />
+    </div>
+    <div class="align-self-end">
+      <button class="btn btn-success px-4" (click)="buscar()">Buscar</button>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="text-center text-muted">Cargando...</div>
+
+  <div *ngIf="vendedores.length > 0" class="table-responsive mt-4">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-success text-center">
+        <tr>
+          <th>#</th>
+          <th>Vendedor</th>
+          <th>Productos Vendidos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vendedores; let i = index">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ v.nombreCompleto }}</td>
+          <td class="text-center fw-bold">{{ v.productosVendidos }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+

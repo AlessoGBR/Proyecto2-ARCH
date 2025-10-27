@@ -33,7 +33,6 @@ public class AuthController {
         respuesta.put("token", token);
         respuesta.put("rol", user.getRol().getNombre());
         respuesta.put("idUsuario", user.getIdUsuario());
-        respuesta.put("activo", user.getCuentaActiva());
         return ResponseEntity.ok(respuesta);
     }
 

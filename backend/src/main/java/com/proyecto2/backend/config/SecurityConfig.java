@@ -37,16 +37,22 @@ public class SecurityConfig {
                 })
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos/**", "/api/categorias/**").permitAll()
-
-                        .requestMatchers("/api/carrito/**").hasAnyRole("COMUN", "ADMIN")
-                        .requestMatchers("/api/pedidos/**").hasAnyRole("COMUN", "ADMIN", "LOGISTICA")
-                        .requestMatchers("/api/sanciones/**").hasRole("MODERADOR")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/moderacion/**").hasRole("MODERADOR")
-                        .requestMatchers("/api/logistica/**").hasRole("LOGISTICA")
+                        .requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/admin/**").permitAll()
+                        .requestMatchers("/api/reportes/**").permitAll()
+                        .requestMatchers("/api/categorias/**").permitAll()
+                        .requestMatchers("/api/productos/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/api/calificaciones/**").permitAll()
+                        .requestMatchers("/api/carrito/**").permitAll()
+                        .requestMatchers("/api/pedidos/**").permitAll()
+                        .requestMatchers("/api/sanciones/**").permitAll()
+                        .requestMatchers("/api/tarjetas/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
@@ -65,7 +71,7 @@ public class SecurityConfig {
 
         cfg.setAllowedOrigins(List.of(
                 "http://localhost:4200",
-                "https://tu-proyecto.netlify.app"
+                "https://proyecto2-arch.netlify.app"
         ));
 
         cfg.setAllowedOriginPatterns(List.of(

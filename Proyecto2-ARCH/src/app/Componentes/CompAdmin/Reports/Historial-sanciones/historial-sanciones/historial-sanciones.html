@@ -1,1 +1,40 @@
-<p>historial-sanciones works!</p>
+<div class="container mt-5">
+  <h3 class="text-center text-success fw-bold mb-4">Historial de Sanciones</h3>
+
+  <div *ngIf="cargando" class="text-center text-muted">Cargando...</div>
+
+  <div *ngIf="sanciones.length > 0" class="table-responsive mt-4">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-success text-center">
+        <tr>
+          <th>#</th>
+          <th>Usuario Sancionado</th>
+          <th>Moderador</th>
+          <th>Motivo</th>
+          <th>Fecha de Sanción</th>
+          <th>Fecha Fin</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of sanciones; let i = index">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td>{{ s.usuarioSancionado }}</td>
+          <td>{{ s.moderador }}</td>
+          <td>{{ s.motivo }}</td>
+          <td class="text-center">{{ s.fechaSancion }}</td>
+          <td class="text-center">{{ s.fechaFinSancion || '—' }}</td>
+          <td class="text-center">
+            <span
+              class="badge"
+              [class.bg-success]="s.estado === 'finalizada'"
+              [class.bg-danger]="s.estado === 'activa'"
+            >
+              {{ s.estado }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
