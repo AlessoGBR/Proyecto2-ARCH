@@ -4,6 +4,7 @@ import {
   HttpHandlerFn,
   HttpEvent,
   HttpErrorResponse,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -13,11 +14,20 @@ export const authInterceptor: HttpInterceptorFn = (
 ): Observable<HttpEvent<any>> => {
   const token = localStorage.getItem('token');
 
-  const cloned = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
+  let headers = new HttpHeaders({
+    'ngrok-skip-browser-warning': 'true',
+  });
 
-  return next(cloned).pipe(
+  if (token) {
+    headers = headers.set('Authorization', `Bearer ${token}`);
+  }
+
+  const clonedReq = req.clone({ headers });
+
+  return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 || error.status === 403) {
+        console.warn('Sesión expirada o sin autorización, redirigiendo al login...');
         localStorage.clear();
         window.location.href = '/login';
       }
@@ -25,3 +35,4 @@ export const authInterceptor: HttpInterceptorFn = (
     })
   );
 };
+

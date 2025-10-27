@@ -15,8 +15,7 @@ export class CategoriaService {
   constructor(private http: HttpClient) {}
 
   obtenerCategorias(): Observable<Categoria[]> {
-    const headers = new HttpHeaders({ 'ngrok-skip-browser-warning': 'true' });
-    return this.http.get<Categoria[]>(this.apiUrl, {headers});
+    return this.http.get<Categoria[]>(this.apiUrl);
   }
 
   obtenerCategoria(id: string): Observable<Categoria> {
