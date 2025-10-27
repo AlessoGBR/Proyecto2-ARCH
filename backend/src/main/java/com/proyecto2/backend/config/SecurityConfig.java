@@ -80,15 +80,9 @@ public class SecurityConfig {
 
         cfg.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
 
-        cfg.setAllowedHeaders(List.of(
-                "Authorization",
-                "Content-Type",
-                "X-Requested-With",
-                "Accept",
-                "Origin"
-        ));
+        cfg.setAllowedHeaders(List.of("*"));
 
-        cfg.setExposedHeaders(List.of("Authorization", "Content-Type"));
+        cfg.setExposedHeaders(List.of("*"));
 
         cfg.setAllowCredentials(true);
 

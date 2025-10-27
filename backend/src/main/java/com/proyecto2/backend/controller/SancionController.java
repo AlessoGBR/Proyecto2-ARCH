@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/sanciones")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class SancionController {
 
     private final SancionService sancionService;

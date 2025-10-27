@@ -11,7 +11,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categorias")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://proyecto2-arch.netlify.app",
+        "https://*.ngrok-free.dev",
+        "https://*.ngrok-free.app"
+})
+
 public class CategoriaController {
 
     private final CategoriaService categoriaService;

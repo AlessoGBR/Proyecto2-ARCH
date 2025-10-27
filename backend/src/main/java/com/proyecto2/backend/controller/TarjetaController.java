@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tarjetas")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class TarjetaController {
 
     private final TarjetaService tarjetaService;
