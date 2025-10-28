@@ -57,40 +57,78 @@
         </div>
         <div class="card-body-checkout">
           <div class="tarjetas-lista" *ngIf="tarjetas && tarjetas.length > 0">
-            <div
-              *ngFor="let tarjeta of tarjetas"
-              class="tarjeta-item"
-              [class.selected]="tarjetaSeleccionada?.id === tarjeta.id"
-              (click)="seleccionarTarjeta(tarjeta)"
-            >
-              <input
-                type="radio"
-                name="tarjeta"
-                [value]="tarjeta"
-                [(ngModel)]="tarjetaSeleccionada"
-                [id]="'tarjeta-' + tarjeta.id"
-              />
+            <ng-container *ngFor="let tarjeta of tarjetas">
+              <div
+                *ngIf="tarjeta.esPrincipal"
+                class="tarjeta-item"
+                [class.selected]="tarjetaSeleccionada?.id === tarjeta.id"
+                (click)="seleccionarTarjeta(tarjeta)"
+              >
+                <input
+                  type="radio"
+                  name="tarjeta"
+                  [value]="tarjeta"
+                  [(ngModel)]="tarjetaSeleccionada"
+                  [id]="'tarjeta-' + tarjeta.id"
+                />
 
-              <label [for]="'tarjeta-' + tarjeta.id" class="tarjeta-content">
-                <div class="tarjeta-icon">
-                  <i
-                    class="bi"
-                    [ngClass]="{
-                      'bi-credit-card-2-front': tarjeta.tipo === 'Visa',
-                      'bi-credit-card-fill': tarjeta.tipo === 'Mastercard',
-                      'bi-credit-card': tarjeta.tipo === 'Débito'
-                    }"
-                  ></i>
-                </div>
-                <div class="tarjeta-info">
-                  <span class="tarjeta-numero">•••• •••• •••• {{ tarjeta.ultimos4Digitos }}</span>
-                  <span class="tarjeta-tipo">{{ tarjeta.tipo }}</span>
-                </div>
-                <div class="tarjeta-check">
-                  <i class="bi bi-check-circle-fill"></i>
-                </div>
-              </label>
-            </div>
+                <label [for]="'tarjeta-' + tarjeta.id" class="tarjeta-content">
+                  <div class="tarjeta-icon">
+                    <i
+                      class="bi"
+                      [ngClass]="{
+                        'bi-credit-card-2-front': tarjeta.tipo === 'Visa',
+                        'bi-credit-card-fill': tarjeta.tipo === 'Mastercard',
+                        'bi-credit-card': tarjeta.tipo === 'Débito'
+                      }"
+                    ></i>
+                  </div>
+                  <div class="tarjeta-info">
+                    <span class="tarjeta-numero">•••• •••• •••• {{ tarjeta.ultimos4Digitos }}</span>
+                    <span class="tarjeta-tipo">{{ tarjeta.tipo }}</span>
+                  </div>
+                  <div class="tarjeta-check">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </label>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let tarjeta of tarjetas">
+              <div
+                *ngIf="!tarjeta.esPrincipal"
+                class="tarjeta-item"
+                [class.selected]="tarjetaSeleccionada?.id === tarjeta.id"
+                (click)="seleccionarTarjeta(tarjeta)"
+              >
+                <input
+                  type="radio"
+                  name="tarjeta"
+                  [value]="tarjeta"
+                  [(ngModel)]="tarjetaSeleccionada"
+                  [id]="'tarjeta-' + tarjeta.id"
+                />
+
+                <label [for]="'tarjeta-' + tarjeta.id" class="tarjeta-content">
+                  <div class="tarjeta-icon">
+                    <i
+                      class="bi"
+                      [ngClass]="{
+                        'bi-credit-card-2-front': tarjeta.tipo === 'Visa',
+                        'bi-credit-card-fill': tarjeta.tipo === 'Mastercard',
+                        'bi-credit-card': tarjeta.tipo === 'Débito'
+                      }"
+                    ></i>
+                  </div>
+                  <div class="tarjeta-info">
+                    <span class="tarjeta-numero">•••• •••• •••• {{ tarjeta.ultimos4Digitos }}</span>
+                    <span class="tarjeta-tipo">{{ tarjeta.tipo }}</span>
+                  </div>
+                  <div class="tarjeta-check">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </label>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -156,6 +194,6 @@
           Confirmar pedido
         </button>
       </div>
-    </div>    
+    </div>
   </div>
 </div>

@@ -79,10 +79,12 @@
             [class.active]="i === 0"
           >
             <div class="productos-grid">
+              <ng-container *ngFor="let producto of grupo">
               <app-producto-card
-                *ngFor="let producto of grupo"
+                *ngIf="producto.stock > 0"
                 [producto]="producto"
               ></app-producto-card>
+              </ng-container>
             </div>
           </div>
         </div>

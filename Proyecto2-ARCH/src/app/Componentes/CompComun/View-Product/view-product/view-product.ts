@@ -50,6 +50,15 @@ export class ViewProduct implements OnInit {
       return;
     }
 
+    if (this.producto.stock <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Agregar al carrito',
+        text: 'No puedes agregar un producto con stock 0.',
+      });
+      return;
+    }
+
     this.carritoService
       .agregarProducto({
         idUsuario: Number(idUsuario),
@@ -110,5 +119,4 @@ export class ViewProduct implements OnInit {
       next: (prom) => (this.promedio = prom),
     });
   }
-  
 }

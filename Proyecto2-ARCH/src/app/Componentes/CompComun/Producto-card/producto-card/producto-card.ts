@@ -33,6 +33,12 @@ export class ProductoCard {
         showConfirmButton: true,
       });
       return;
+    } else if (this.producto.stock <= 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'No puedes comprar un producto con stock 0',
+        showConfirmButton: true,
+      });
     } else {
       this.router.navigate(['/view-product', this.producto.id]);
     }

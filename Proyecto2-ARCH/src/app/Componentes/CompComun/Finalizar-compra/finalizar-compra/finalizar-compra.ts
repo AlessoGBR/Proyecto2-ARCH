@@ -41,7 +41,6 @@ export class FinalizarCompra implements OnInit {
     this.tarjetaService.obtenerTarjetas(idUsuarioNum).subscribe({
       next: (data) => (this.tarjetas = data),
     });
-
     this.carritoService.obtenerCarrito(idUsuario).subscribe({
       next: (data) => {
         this.carrito = data;
@@ -181,7 +180,6 @@ export class FinalizarCompra implements OnInit {
       html: `
         <div style="text-align: center;">
           <p style="font-size: 1.1rem; margin: 1rem 0;">Tu pedido ha sido procesado exitosamente</p>
-          <p style="color: #666;">Recibirás un correo de confirmación con los detalles de tu pedido</p>
         </div>
       `,
       confirmButtonColor: '#667eea',
@@ -189,14 +187,13 @@ export class FinalizarCompra implements OnInit {
     }).then(() => {
       this.carritoService.vaciarCarrito(id).subscribe({
         next: () => {
-          this.router.navigate(['/Perfil-comun'])
+          this.router.navigate(['/Perfil-comun']);
         },
         error: (err) => {
-          this.router.navigate(['/Perfil-comun'])
+          this.router.navigate(['/Perfil-comun']);
         },
       });
-    })
-    
+    });
   }
 
   private mostrarError(mensaje: string): void {

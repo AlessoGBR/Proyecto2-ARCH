@@ -21,7 +21,6 @@ export class InicioSesion {
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
-        console.log(res.idUsuario);
         this.authService.guardarSesion(res.token, res.rol, res.idUsuario);
         switch (res.rol) {
           case 'ADMINISTRADOR':
@@ -47,11 +46,25 @@ export class InicioSesion {
         }
       },
       error: (err) => {
+        let mensaje = 'Correo o contraseña incorrectos';
+
+        if (err.status === 404) {
+          mensaje = 'Correo o contraseña incorrectos';
+        } else if (err.status === 401) {
+          mensaje = 'Correo o contraseña incorrectos';
+        } else if (err.status === 400) {
+          mensaje = 'Correo o contraseña incorrectos';
+        } else if (err.error && typeof err.error === 'string') {
+          mensaje = 'Correo o contraseña incorrectos';
+        }
+
         Swal.fire({
           icon: 'error',
-          title: 'Error',
-          text: 'Usuario o contraseña incorrectos',
+          title: 'Error de autenticación',
+          text: mensaje,
+          confirmButtonColor: '#667eea',
         });
+
         this.email = '';
         this.password = '';
       },

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,17 +22,28 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        String token = authService.login(request);
-        Usuario user = authService.getUsuarioByEmail(request.getEmail());
-        if (user == null || user.getRol() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("El usuario no tiene rol asignado");
+        try {
+            String token = authService.login(request);
+            Usuario user = authService.getUsuarioByEmail(request.getEmail());
+
+            if (user == null || user.getRol() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "El usuario no tiene rol asignado"));
+            }
+            Map<String, Object> respuesta = new HashMap<>();
+            respuesta.put("token", token);
+            respuesta.put("rol", user.getRol().getNombre());
+            respuesta.put("idUsuario", user.getIdUsuario());
+            respuesta.put("activo", user.getCuentaActiva());
+            return ResponseEntity.ok(respuesta);
+
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(Map.of("error", e.getReason()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error en el servidor al iniciar sesión"));
         }
-        Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("token", token);
-        respuesta.put("rol", user.getRol().getNombre());
-        respuesta.put("idUsuario", user.getIdUsuario());
-        return ResponseEntity.ok(respuesta);
     }
 
     @GetMapping("/{id}")
