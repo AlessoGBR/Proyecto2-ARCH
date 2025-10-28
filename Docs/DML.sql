@@ -69,7 +69,7 @@ $$
             LOOP
                 FOR j IN 1..10
                     LOOP
-                        INSERT INTO productos (nombre, descripcion, precio, magen_url, stock, id_categoria, id_vendedor,
+                        INSERT INTO productos (nombre, descripcion, precio, magen_url, stock, id_categoria, estado,id_vendedor,
                                                estado_aprobacion)
                         VALUES (CONCAT('Producto ', j, ' del usuario ', i),
                                 CONCAT('Descripción del producto ', j, ' del usuario ', i),
@@ -77,6 +77,7 @@ $$
                                 'https://cdn-icons-png.flaticon.com/512/679/679720.png',
                                 (5 + (RANDOM() * 20)::INT),
                                 (1 + (RANDOM() * 5)::INT),
+                                'nuevo',
                                 i,
                                 'aprobado');
                     END LOOP;
